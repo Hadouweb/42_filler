@@ -1,36 +1,25 @@
-CC = gcc -Werror -Wextra -Wall -Ofast
+CC = gcc -Werror -Wextra -Wall
 
 SRCPATH = ./srcs
-BRESPATH = $(SRCPATH)/bresenham
-FILLPATH = $(SRCPATH)/fill
 
 INCPATH = ./includes
 
 LIBFT = ./libft
-MINILIBX = ./minilibx_macos
 
-HEADER = -I $(LIBFT)/includes -I $(INCPATH) -I $(MINILIBX)
+HEADER = -I $(LIBFT)/includes -I $(INCPATH)
 
-LIB = $(LIBFT)/libft.a $(MINILIBX)/libmlx.a -framework OpenGL -framework AppKit 
+LIB = $(LIBFT)/libft.a
 
 SRC = 	$(SRCPATH)/main.c\
-		$(BRESPATH)/ft_middle_point.c\
-		$(SRCPATH)/ft_event.c\
-		$(SRCPATH)/ft_print_form.c\
-		$(SRCPATH)/ft_util.c\
-		$(FILLPATH)/ft_fill.c\
-		$(FILLPATH)/ft_util_fill.c\
-		$(FILLPATH)/ft_debug_fill.c\
 
 OBJ = $(SRC:.c=.o)
 
-NAME = 3d
+NAME = filler
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@make -C $(LIBFT)
-	@make -C $(MINILIBX)
 	@$(CC) $(HEADER) $(LIB) -o $(NAME) $(OBJ)
 
 %.o: %.c
@@ -39,7 +28,6 @@ $(NAME) : $(OBJ)
 
 clean : 
 	@make -C $(LIBFT) clean
-	@make -C $(MINILIBX) clean
 	rm -rf $(OBJ)
 
 fclean : clean

@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define BUFF_SIZE 1
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -60,6 +62,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
@@ -98,5 +101,14 @@ void				**ft_lsttotab(t_list *l);
 int					ft_tablen(int *t);
 int					*ft_tabjoin(int *t1, int *t2);
 t_list				*ft_lstsplit(char const *s, char c);
+
+int					get_next_line(int const fd, char **line);
+
+typedef struct		s_save
+{
+	int				fd_num;
+	char			*rest;
+	struct s_save	*next;
+}					t_save;
 
 #endif

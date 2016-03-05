@@ -58,6 +58,7 @@ SRC = 	$(BITPATH)/ft_printbit.c\
 		$(STRPATH)/ft_striter.c\
 		$(STRPATH)/ft_striteri.c\
 		$(STRPATH)/ft_strjoin.c\
+		$(STRPATH)/ft_strjoin_free.c\
 		$(STRPATH)/ft_strlcat.c\
 		$(STRPATH)/ft_strcat.c\
 		$(STRPATH)/ft_strlen.c\
@@ -78,6 +79,7 @@ SRC = 	$(BITPATH)/ft_printbit.c\
 		$(STRPATH)/ft_toupper.c\
 		$(TABPATH)/ft_tabjoin.c\
 		$(TABPATH)/ft_tablen.c\
+		$(SRCPATH)/get_next_line.c\
 
 OBJ = $(SRC:.c=.o)
 

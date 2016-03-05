@@ -10,6 +10,16 @@ void	ft_set_id_player(t_game *g, char *str)
 		if (ft_strlen(str) >= 12)
 			str += 10;
 		g->id_player = str[0];
+		if (g->id_player == '1')
+		{
+			g->me = 'o';
+			g->enemy = 'x';
+		}
+		else
+		{
+			g->me = 'x';
+			g->enemy = 'o';
+		}
 	}
 }
 

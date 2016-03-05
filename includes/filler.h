@@ -32,6 +32,9 @@ typedef struct 		s_game
 	int				mode;
 	int				clp;
 	int				clb;
+	char			me;
+	char			enemy;
+	int				loop;
 }					t_game;
 
 void				ft_debug_list(t_line *list);

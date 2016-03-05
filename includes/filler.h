@@ -46,6 +46,8 @@ void				ft_list_push_back(t_line **l, char *str);
 void				ft_clear_list(t_line **list);
 
 void				ft_set_id_player(t_game *g, char *str);
+void				ft_set_board(t_game *g, t_line *l);
+void				ft_set_piece(t_game *g, t_line *l);
 
 int					ft_check_mode(t_game *g, char *str);
 #endif

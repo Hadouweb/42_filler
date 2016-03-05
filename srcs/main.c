@@ -1,60 +1,5 @@
 #include "filler.h"
 
-void	ft_generate_board(t_game *g, t_line *l)
-{
-	int		x;
-	int		y;
-	char	*str;
-
-	x = 0;
-	str = NULL;
-	while (l)
-	{
-		str = l->str;
-		if (*str && str[0] == '0')
-		{
-			while (*str && *str != ' ')
-				str++;
-			if (*str)
-				str++;
-			y = 0;
-			while (y < g->board->y && *str)
-			{
-				g->board->b[x][y] = *str;
-				y++;
-				str++;
-			}
-			x++;
-		}
-		l = l->next;
-	}
-	ft_debug_tab_b(g);
-}
-
-void	ft_generate_piece(t_game *g, t_line *l)
-{
-	int		x;
-	int		y;
-	char	*str;
-
-	x = 0;
-	str = NULL;
-	while (l)
-	{
-		str = l->str;
-		y = 0;
-		while (y < g->piece->y && *str)
-		{
-			g->piece->p[x][y] = *str;
-			y++;
-			str++;
-		}
-		x++;
-		l = l->next;
-	}
-	ft_debug_tab_p(g);
-}
-
 void	ft_loop(t_game *g, char *line, t_line **lst_b, t_line **lst_p)
 {
 	if (!ft_check_mode(g, line))
@@ -64,7 +9,7 @@ void	ft_loop(t_game *g, char *line, t_line **lst_b, t_line **lst_p)
 			ft_list_push_back(lst_b, line);
 			if (g->clb == g->board->x + 1)
 			{
-				ft_generate_board(g, *lst_b);
+				ft_set_board(g, *lst_b);
 				//ft_debug_list(*lst_b);
 				ft_clear_list(lst_b);
 				g->clb = 0;
@@ -75,7 +20,7 @@ void	ft_loop(t_game *g, char *line, t_line **lst_b, t_line **lst_p)
 			ft_list_push_back(lst_p, line);
 			if (g->clp == g->piece->x)
 			{
-				ft_generate_piece(g, *lst_p);
+				ft_set_piece(g, *lst_p);
 				//ft_debug_list(*lst_p);
 				ft_clear_list(lst_p);
 				ft_putstr("0 1\n");

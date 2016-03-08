@@ -45,7 +45,8 @@ int		ft_is_valid_pos(t_game *g, int x, int y)
 				star++;
 				//if (ft_no_enemy())
 			}
-			if (ft_tolower(g->board->b[x + vx][y + vy]) == g->enemy)
+			if (g->piece->p[vx][vy] == '*' &&
+				ft_tolower(g->board->b[x + vx][y + vy]) == g->enemy)
 				return (0);
 			vy++;
 		}

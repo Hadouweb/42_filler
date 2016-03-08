@@ -54,6 +54,7 @@ SRC = 	$(BITPATH)/ft_printbit.c\
 		$(STRPATH)/ft_strcpy.c\
 		$(STRPATH)/ft_strdel.c\
 		$(STRPATH)/ft_strdup.c\
+		$(STRPATH)/ft_strndup.c\
 		$(STRPATH)/ft_strequ.c\
 		$(STRPATH)/ft_striter.c\
 		$(STRPATH)/ft_striteri.c\

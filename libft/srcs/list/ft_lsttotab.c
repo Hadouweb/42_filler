@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-void	**ft_lsttotab(t_list *l)
+char	**ft_lsttotab(t_list *l)
 {
-	void	**tab;
+	char	**tab;
 	int		size;
 	size_t	i;
 	t_list	*list;
@@ -22,11 +23,13 @@ void	**ft_lsttotab(t_list *l)
 	list = l;
 	size = ft_lstsize(l);
 	i = 0;
-	tab = (void **)ft_memalloc(size);
+	if ((tab = (char **)ft_memalloc(size * sizeof(char *))) == NULL)
+		return (NULL);
 	while (list)
 	{
-		tab[i] = (void *)ft_memalloc(list->content_size);
-		tab[i] = list->content;
+		if ((tab[i] = (char *)ft_memalloc(list->content_size)) == NULL)
+			return (NULL);
+		tab[i] = ft_strdup(list->content);
 		list = list->next;
 		i++;
 	}

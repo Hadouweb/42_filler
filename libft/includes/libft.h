@@ -97,7 +97,7 @@ void				ft_putnbr_base(int n, int base);
 void				ft_lstpush_front(t_list **lst, void const *c, size_t s);
 void				ft_lstpush_back(t_list **lst, void const *c, size_t s);
 int					ft_lstsize(t_list *l);
-void				**ft_lsttotab(t_list *l);
+char				**ft_lsttotab(t_list *l);
 int					ft_tablen(int *t);
 int					*ft_tabjoin(int *t1, int *t2);
 t_list				*ft_lstsplit(char const *s, char c);

@@ -12,10 +12,32 @@ void	ft_init_ncurses()
 	//vm_init_window(r);
 }
 
-void	ft_debug_app(t_app *app)
+void	ft_debug_player(t_app *app)
 {
 	printf("Joueur 1 : id : %d, name : %s\n", app->p1.id, app->p1.name);
 	printf("Joueur 2 : id : %d, name : %s\n", app->p2.id, app->p2.name);
+}
+
+void	ft_debug_board(t_app *app)
+{
+	int		i;
+	int		j;
+	char	**tab;
+
+	tab = app->b.tab;
+	printf("Taille du plateau : y = %d, x = %d\n", app->b.y, app->b.x);
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		printf("%s\n", tab[i]);
+		i++;
+	}
+}
+
+void	ft_debug_piece(t_app *app)
+{
+	printf("Taille de la piece : y = %d, x = %d", app->p.y, app->p.x);
 }
 
 void	ft_set_player(t_app *app, char *str)
@@ -24,7 +46,6 @@ void	ft_set_player(t_app *app, char *str)
 	int			i;
 	int			start;
 
-	ft_bzero(&p, sizeof(t_player));
 	if (ft_strlen(str) > 11)
 		str += 10;
 	p.id = ft_atoi(str);
@@ -45,6 +66,72 @@ void	ft_set_player(t_app *app, char *str)
 		app->p2 = p;
 }
 
+void	ft_init_board_or_piece(t_app *app, char *str)
+{
+	if (ft_strstr(str, "Plateau"))
+	{
+		if (!app->b.x)
+		{
+			app->b.y = ft_atoi(str += 8);
+			app->b.x = ft_atoi(str += 2);
+		}
+		app->m = 1;
+	}
+	else if (ft_strstr(str, "Piece"))
+	{
+		app->p.y = ft_atoi(str += 6);
+		app->p.x = ft_atoi(str += 2);
+		app->m = 2;
+	}
+}
+
+void	ft_debug_lst(t_app *app)
+{
+	t_list	*l;
+
+	l = app->list_tmp;
+	while (l)
+	{
+		printf("%s\n", l->content);
+		l = l->next;
+	}
+}
+
+void	ft_clear_list(t_list **list)
+{
+	t_list	*l;
+	t_list	*tmp;
+
+	l = *list;
+	tmp = NULL;
+	while (l)
+	{
+		free(l->content);
+		l->content_size = 0;
+		tmp = l;
+		free(l);
+		l = NULL;
+		l = tmp->next;
+	}
+}
+
+void	ft_set_board(t_app *app, char *str)
+{
+	if (ft_strlen(str) > 5)
+	{
+		ft_lstpush_back(&app->list_tmp, str + 4, app->b.x);
+		app->b.cl++;
+		if (app->b.cl == app->b.y + 1)
+		{
+			app->list_tmp = app->list_tmp->next;
+			app->b.tab = (char**)ft_lsttotab(app->list_tmp);
+			ft_clear_list(&app->list_tmp);
+			ft_debug_board(app);
+			app->m = 0;
+		}
+	}
+}
+
 int		main(void)
 {
 	char	*line;
@@ -53,16 +140,25 @@ int		main(void)
 
 	line = NULL;
 	i = 0;
+	ft_bzero(&app, sizeof(t_app));
+	app.list_tmp = NULL;
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line[0] && line[0] == '$')
 			ft_set_player(&app, line);
-		//printf("%s\n", line);
+		else if (line[0] && line[0] == 'P')
+			ft_init_board_or_piece(&app, line);
+		else if (app.m == 1)
+			ft_set_board(&app, line);
+		//printf("%s %d %d\n", line, app.line, app.m);
 		ft_strdel(&line);
+		app.line++;
 		i++;
-		if (i == 10)
+		if (i == 18)
 			break ;
 	}
-	ft_debug_app(&app);
+	//ft_debug_piece(&app);
+	//ft_debug_board(&app);
+	//ft_debug_player(&app);
 	return (0);
 }

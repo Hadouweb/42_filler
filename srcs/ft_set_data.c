@@ -58,6 +58,7 @@ void	ft_set_piece(t_game *g, t_line *l)
 {
 	int		x;
 	int		y;
+	int		i;
 	char	*str;
 
 	x = 0;
@@ -66,12 +67,14 @@ void	ft_set_piece(t_game *g, t_line *l)
 	{
 		str = l->str;
 		y = 0;
-		while (y < g->piece->y && *str)
+		i = 0;
+		while (y < g->piece->y && str[i])
 		{
-			g->piece->p[x][y] = *str;
+			g->piece->p[x][y] = str[i];
 			y++;
-			str++;
+			i++;
 		}
+		g->piece->p[x][y] = '\0';
 		x++;
 		l = l->next;
 	}

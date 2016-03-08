@@ -13,41 +13,33 @@ void	ft_debug_list(t_line *list)
 void	ft_debug_tab_b(t_game *g)
 {
 	int		x;
-	int		y;
 
 	x = 0;
-	fprintf(stderr, "\n_________________________\n");
+	usleep(10000);
+	ft_putstr_fd("______________________\n", 2);
 	while (x < g->board->x)
 	{
-		y = 0;
-		while (y < g->board->y)
-		{
-			fprintf(stderr, "%c", g->board->b[x][y]);
-			y++;
-		}
-		fprintf(stderr, "\n");
+		ft_putstr_fd(g->board->b[x], 2);
+		ft_putstr_fd("\n", 2);
 		x++;
 	}
-	fprintf(stderr, "\n_________________________\n");
+	ft_putstr_fd("______________________\n", 2);
+	usleep(10000);
 }
 
 void	ft_debug_tab_p(t_game *g)
 {
 	int		x;
-	int		y;
 
 	x = 0;
-	fprintf(stderr, "\n_________________________\n");
+	usleep(10000);
+	ft_putstr_fd("______________________\n", 2);
 	while (x < g->piece->x)
 	{
-		y = 0;
-		while (y < g->piece->y)
-		{
-			fprintf(stderr, "%c", g->piece->p[x][y]);
-			y++;
-		}
-		fprintf(stderr, "\n");
+		ft_putstr_fd(g->piece->p[x], 2);
+		ft_putstr_fd("\n", 2);
 		x++;
 	}
-	fprintf(stderr, "\n_________________________\n");
+	ft_putstr_fd("______________________\n", 2);
+	usleep(10000);
 }

@@ -53,4 +53,6 @@ void				ft_set_board(t_game *g, t_line *l);
 void				ft_set_piece(t_game *g, t_line *l);
 
 int					ft_check_mode(t_game *g, char *str);
+
+void				ft_loop(t_game *g, char *line, t_line **lst_b, t_line **lst_p);
 #endif

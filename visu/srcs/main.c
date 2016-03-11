@@ -25,9 +25,9 @@ void	ft_debug_board(t_app *app)
 	char	**tab;
 
 	tab = app->b.tab;
-	printf("Taille du plateau : y = %d, x = %d\n", app->b.y, app->b.x);
+	printf("_Taille du plateau : y = %d, x = %d\n", app->b.y, app->b.x);
 	i = 0;
-	while (tab[i])
+	while (i < app->b.y)
 	{
 		j = 0;
 		printf("%s\n", tab[i]);
@@ -37,7 +37,19 @@ void	ft_debug_board(t_app *app)
 
 void	ft_debug_piece(t_app *app)
 {
-	printf("Taille de la piece : y = %d, x = %d", app->p.y, app->p.x);
+	int		i;
+	int		j;
+	char	**tab;
+
+	tab = app->p.tab;
+	printf("_Taille de la piece : y = %d, x = %d\n", app->p.y, app->p.x);
+	i = 0;
+	while (i < app->p.y)
+	{
+		j = 0;
+		printf("%s\n", tab[i]);
+		i++;
+	}
 }
 
 void	ft_set_player(t_app *app, char *str)
@@ -97,22 +109,23 @@ void	ft_debug_lst(t_app *app)
 	}
 }
 
-void	ft_clear_list(t_list **list)
+void	ft_clear_list(t_app *app)
 {
 	t_list	*l;
 	t_list	*tmp;
 
-	l = *list;
+	l = app->list_tmp;
 	tmp = NULL;
 	while (l)
 	{
 		free(l->content);
+		l->content = NULL;
 		l->content_size = 0;
 		tmp = l;
 		free(l);
-		l = NULL;
 		l = tmp->next;
 	}
+	app->list_tmp = NULL;
 }
 
 void	ft_set_board(t_app *app, char *str)
@@ -125,10 +138,25 @@ void	ft_set_board(t_app *app, char *str)
 		{
 			app->list_tmp = app->list_tmp->next;
 			app->b.tab = (char**)ft_lsttotab(app->list_tmp);
-			ft_clear_list(&app->list_tmp);
-			ft_debug_board(app);
+			ft_clear_list(app);
+			//ft_debug_board(app);
 			app->m = 0;
+			app->b.cl = 0;
 		}
+	}
+}
+
+void	ft_set_piece(t_app *app, char *str)
+{
+	ft_lstpush_back(&app->list_tmp, str, app->p.x);
+	app->p.cl++;
+	if (app->p.cl == app->p.y)
+	{
+		app->p.tab = (char**)ft_lsttotab(app->list_tmp);
+		ft_clear_list(app);
+		//ft_debug_piece(app);
+		app->m = 0;
+		app->p.cl = 0;
 	}
 }
 
@@ -148,14 +176,20 @@ int		main(void)
 			ft_set_player(&app, line);
 		else if (line[0] && line[0] == 'P')
 			ft_init_board_or_piece(&app, line);
+		else if (line[0] && line[0] == '<')
+		{
+			continue ;
+		}
 		else if (app.m == 1)
 			ft_set_board(&app, line);
-		//printf("%s %d %d\n", line, app.line, app.m);
+		else if (app.m == 2)
+			ft_set_piece(&app, line);
+		printf("%s\n", line);
 		ft_strdel(&line);
 		app.line++;
 		i++;
-		if (i == 18)
-			break ;
+		//if (i == 30)
+		//	break ;
 	}
 	//ft_debug_piece(&app);
 	//ft_debug_board(&app);

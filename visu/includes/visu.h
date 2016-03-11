@@ -23,6 +23,8 @@ typedef struct 		s_piece
 {
 	int				x;
 	int				y;
+	int				cl;
+	char			**tab;
 }					t_piece;
 
 typedef struct  	s_app

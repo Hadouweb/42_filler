@@ -138,7 +138,7 @@ void	ft_set_board(t_app *app, char *str)
 		{
 			app->list_tmp = app->list_tmp->next;
 			app->b.tab = (char**)ft_lsttotab(app->list_tmp);
-			ft_clear_list(app);
+			//ft_clear_list(app);
 			//ft_debug_board(app);
 			app->m = 0;
 			app->b.cl = 0;
@@ -148,15 +148,18 @@ void	ft_set_board(t_app *app, char *str)
 
 void	ft_set_piece(t_app *app, char *str)
 {
-	ft_lstpush_back(&app->list_tmp, str, app->p.x);
-	app->p.cl++;
-	if (app->p.cl == app->p.y)
+	if (*str)
 	{
-		app->p.tab = (char**)ft_lsttotab(app->list_tmp);
-		ft_clear_list(app);
-		//ft_debug_piece(app);
-		app->m = 0;
-		app->p.cl = 0;
+		ft_lstpush_back(&app->list_tmp, str, ft_strlen(str));
+		app->p.cl++;
+		if (app->p.cl == app->p.y)
+		{
+			app->p.tab = (char**)ft_lsttotab(app->list_tmp);
+			//ft_clear_list(app);
+			//ft_debug_piece(app);
+			app->m = 0;
+			app->p.cl = 0;
+		}
 	}
 }
 
@@ -184,13 +187,15 @@ int		main(void)
 			ft_set_board(&app, line);
 		else if (app.m == 2)
 			ft_set_piece(&app, line);
-		printf("%s\n", line);
+		//printf("%s\n", line);
 		ft_strdel(&line);
 		app.line++;
 		i++;
 		//if (i == 30)
 		//	break ;
 	}
+	printf("lol\n");
+	ft_debug_lst(&app);
 	//ft_debug_piece(&app);
 	//ft_debug_board(&app);
 	//ft_debug_player(&app);

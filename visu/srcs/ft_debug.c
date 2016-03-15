@@ -49,3 +49,9 @@ void	ft_debug_lst(t_app *app)
 		l = l->next;
 	}
 }
+
+void	ft_debug_current_player(t_app *app)
+{
+	printf("Joueur : id : %d, name : %s\n",
+		app->current_player.id, app->current_player.name);
+}

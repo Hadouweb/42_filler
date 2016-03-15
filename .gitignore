@@ -1,0 +1,4 @@
+*.o
+filler
+filler.trace
+filler_vm

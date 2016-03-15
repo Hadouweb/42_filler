@@ -16,7 +16,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BUFF_SIZE 1000000
+# define BUFF_SIZE 10
+
+typedef struct		s_save
+{
+	int				fd_num;
+	char			*rest;
+	struct s_save	*next;
+}					t_save;
+
+int					get_next_line(int const fd, char **line);
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -30,6 +39,7 @@ size_t				ft_strlen_limit(const char *s, char c);
 char				*ft_strdup(const char *s1);
 char				*ft_strndup(char *str, int len);
 char				*ft_strcpy(char *dst, const char *src);
+char				*ft_strcpy_limit(char *str, char n);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strncat(char *s1, const char *s2, size_t n);
@@ -62,7 +72,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_free_s2(char *s1, char *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
@@ -88,27 +98,18 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-
+void				ft_lstprint(t_list *lst, void (*print)(void *));
 void				ft_lstpush(t_list **alst, t_list *new);
 void				ft_printbit(unsigned char octet);
-unsigned char		ft_reversebit(unsigned char cotet);
+unsigned char		ft_reversebit(unsigned char octet);
 char				*ft_itoa_base(int n, int base);
 void				ft_putnbr_base(int n, int base);
 void				ft_lstpush_front(t_list **lst, void const *c, size_t s);
 void				ft_lstpush_back(t_list **lst, void const *c, size_t s);
 int					ft_lstsize(t_list *l);
-char				**ft_lsttotab(t_list *l);
+void				**ft_lsttotab(t_list *l);
 int					ft_tablen(int *t);
 int					*ft_tabjoin(int *t1, int *t2);
 t_list				*ft_lstsplit(char const *s, char c);
-
-int					get_next_line(int const fd, char **line);
-
-typedef struct		s_save
-{
-	int				fd_num;
-	char			*rest;
-	struct s_save	*next;
-}					t_save;
 
 #endif

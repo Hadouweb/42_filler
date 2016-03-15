@@ -25,7 +25,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	}
 	else
 	{
-		if ((list->content = (void*)ft_memalloc(content_size)) == NULL)
+		if ((list->content = ft_memalloc(content_size)) == NULL)
 		{
 			free(list);
 			return (NULL);

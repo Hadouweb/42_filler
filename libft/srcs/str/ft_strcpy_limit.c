@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy_limit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 02:23:24 by nle-bret          #+#    #+#             */
-/*   Updated: 2015/11/24 03:09:24 by nle-bret         ###   ########.fr       */
+/*   Created: 2016/03/13 04:22:10 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/13 04:22:12 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+char		*ft_strcpy_limit(char *str, char n)
 {
-	char		*dst_tmp;
-	char		*src_tmp;
+	int		i;
+	char	*dst;
 
-	dst_tmp = (char*)dst;
-	src_tmp = (char*)src;
-	if (dst < src)
-		ft_memcpy(dst, src, n);
-	else
+	i = 0;
+	while (str[i] && str[i] != n)
+		i++;
+	if ((dst = (char *)ft_memalloc(i + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i] && str[i] != n)
 	{
-		while (n)
-		{
-			dst_tmp[n - 1] = src_tmp[n - 1];
-			n--;
-		}
+		dst[i] = str[i];
+		i++;
 	}
+	dst[i] = '\0';
 	return (dst);
 }

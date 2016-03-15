@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstprint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 02:23:24 by nle-bret          #+#    #+#             */
-/*   Updated: 2015/11/24 03:09:24 by nle-bret         ###   ########.fr       */
+/*   Created: 2016/03/13 04:51:09 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/13 04:51:10 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+void	ft_lstprint(t_list *lst, void (*print)(void *))
 {
-	char		*dst_tmp;
-	char		*src_tmp;
-
-	dst_tmp = (char*)dst;
-	src_tmp = (char*)src;
-	if (dst < src)
-		ft_memcpy(dst, src, n);
-	else
+	while (lst)
 	{
-		while (n)
-		{
-			dst_tmp[n - 1] = src_tmp[n - 1];
-			n--;
-		}
+		ft_putstr("\033[033mcontent : \033[0m[");
+		(*print)(lst->content);
+		ft_putstr("]\t\033[035msize : \033[0m[");
+		ft_putnbr(lst->content_size);
+		ft_putstr("]\n");
+		lst = lst->next;
 	}
-	return (dst);
 }

@@ -44,7 +44,7 @@ void	ft_init_board_or_piece(t_app *app, char *str);
 void	ft_set_player(t_app *app, char *str);
 
 void	ft_clear_list(t_app *app);
-void	ft_print_data(void *p);
+void	ft_clean_tab(char **tab);
 
 void	ft_set_board(t_app *app, char *str);
 void	ft_set_piece(t_app *app, char *str);

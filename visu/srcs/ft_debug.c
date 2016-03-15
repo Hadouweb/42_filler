@@ -9,16 +9,14 @@ void	ft_debug_player(t_app *app)
 void	ft_debug_board(t_app *app)
 {
 	int		i;
-	int		j;
 	char	**tab;
 
 	tab = app->board.tab;
 	printf("_Taille du plateau : y = %d, x = %d\n", app->board.y, app->board.x);
 	i = 0;
-	while (i < app->board.y)
+	while (tab[i])
 	{
-		j = 0;
-		printf("%s\n", tab[i]);
+		ft_putendl(tab[i]);
 		i++;
 	}
 }
@@ -32,7 +30,7 @@ void	ft_debug_piece(t_app *app)
 	tab = app->piece.tab;
 	printf("_Taille de la piece : y = %d, x = %d\n", app->piece.y , app->piece.x );
 	i = 0;
-	while (i < app->piece.y )
+	while (i < app->piece.y)
 	{
 		j = 0;
 		printf("%s\n", tab[i]);

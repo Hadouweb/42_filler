@@ -23,7 +23,7 @@ void	ft_parsing(t_app *app, char *str)
 	else if (app->mode == 1)
 		ft_set_board(app, str);
 	else if (app->mode == 2)
-		;//ft_set_piece(app, str);
+		ft_set_piece(app, str);
 }
 
 int		main(void)
@@ -43,8 +43,7 @@ int		main(void)
 		ft_strdel(&line);
 		app.line++;
 		i++;
-		if (i == 18)
-			exit(1);
 	}
+	//sleep(2);
 	return (0);
 }

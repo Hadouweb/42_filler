@@ -19,7 +19,19 @@ void	ft_clear_list(t_app *app)
 	app->list_tmp = NULL;
 }
 
-void	ft_print_data(void *p)
+void	ft_clean_tab(char **tab)
 {
-	ft_putstr((char*)p);
+	int		i;
+
+	i = 0;
+	if (tab && tab[0])
+	{	
+		while (tab[i])
+		{
+			ft_strdel(&tab[i]);
+			i++;
+		}
+		free(tab);
+		tab = NULL;
+	}
 }

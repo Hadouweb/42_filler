@@ -31,18 +31,18 @@ int		main(void)
 	while (1)
 	{
 		//printf("%s\n", line);
-		if (app.render.run)
+		if (app.render.run || !app.start)
 		{
 			if (get_next_line(0, &line) > 0)
 			{
-				//ft_parsing(&app, line);
+				ft_parsing(&app, line);
 				ft_strdel(&line);
 				app.line++;
 			}
 			else
 				break ;
 		}
-		ft_nc_update(&app);
+		ft_nc_key_hook(&app);
 	}
 	//sleep(2);
 	return (0);

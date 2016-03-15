@@ -88,6 +88,8 @@ void	ft_set_board(t_app *app, char *str)
 			app->board.tab = (char**)ft_lsttotab(app->list_tmp);
 			ft_clear_list(app);
 			//ft_debug_board(app);
+			ft_nc_update(app);
+			app->start = 1;
 			app->mode = 0;
 			app->board.current_line = 0;
 		}

@@ -5,6 +5,17 @@
 #include <stdio.h>
 #include <ncurses.h>
 
+# define COL_GREY 100
+# define COL_RED 101
+# define COL_LIGHT_RED 102
+# define COL_GREEN 103
+# define COL_LIGHT_GREEN 104
+# define COL_BLUE 105
+# define COL_LIGHT_BLUE 106
+# define COL_YELLOW 107
+# define COL_LIGHT_YELLOW 108
+# define COL_WHITE 109
+
 # define IS_RUN 0
 
 typedef struct 		s_player
@@ -33,6 +44,7 @@ typedef struct 		s_render
 {
 	WINDOW			*w_left;
 	WINDOW			*w_right;
+	WINDOW			*win;
 	int				run;
 }					t_render;
 
@@ -50,6 +62,7 @@ typedef struct  	s_app
 	int				is_finish;
 	int				p1_score;
 	int				p2_score;
+	int 			start;
 }					t_app;
 
 
@@ -72,5 +85,6 @@ void	ft_debug_current_player(t_app *app);
 void	ft_nc_init_window(t_app *app);
 void	ft_nc_init(t_app *app);
 int		ft_nc_update(t_app *app);
+void	ft_nc_key_hook(t_app *app);
 
 #endif

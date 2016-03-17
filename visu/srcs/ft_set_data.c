@@ -107,6 +107,7 @@ void	ft_set_piece(t_app *app, char *str)
 			app->piece.tab = (char**)ft_lsttotab(app->list_tmp);
 			ft_clear_list(app);
 			//ft_debug_piece(app);
+			ft_nc_update(app);
 			app->mode = 0;
 			app->piece.current_line = 0;
 		}

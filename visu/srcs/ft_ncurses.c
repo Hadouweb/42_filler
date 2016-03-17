@@ -2,10 +2,9 @@
 
 void	ft_nc_init_window(t_app *app)
 {
-	app->render.w_left = newwin(50, 150, 0, 0);
-//	app->render.w_right = subwin(stdscr, 68, 55, 0, 198);
+	app->render.w_left = newwin(app->board.y + 3, app->board.x + 4, 0, 0);
+	app->render.w_right = newwin(app->board.y + 3, 40, 0, app->board.x + 5);
 	box(app->render.w_left, ACS_VLINE, ACS_HLINE);
-//	box(app->render.w_right, ACS_VLINE, ACS_HLINE);
 	//refresh();
 	//vm_init_const_text(app, r);
 }
@@ -30,11 +29,11 @@ void	ft_nc_print_arena(t_app *app)
 			if (app->board.tab[y][x] == 'O')
 				id = 2;
 			else if (app->board.tab[y][x] == 'X')
-				id = 4;
+				id = 3;
 			else if (app->board.tab[y][x] == 'o')
-				id = 6;
+				id = 4;
 			else if (app->board.tab[y][x] == 'x')
-				id = 8;
+				id = 5;
 			wattron(app->render.w_left, COLOR_PAIR(id));
 			mvwprintw(app->render.w_left, y + 1, x + 2, "%c", app->board.tab[y][x]);
 			wattroff(app->render.w_left, COLOR_PAIR(id));
@@ -65,21 +64,64 @@ void	ft_nc_key_hook(t_app *app)
 	key = 0;
 	if ((key = getch()) > 0)
 	{
-		//mvwprintw(app->render.w_left, 10, 1, "%d      ", key);
+		//mvwprintw(app->render.w_right, 10, 1, "%d      ", key);
 		if (key == 32 && !app->render.run)
 			app->render.run = 1;
 		else if (key == 32 && app->render.run)
 			app->render.run = 0;
+		else if (key == 65)
+			app->speed += 1;
+		else if (key == 66)
+			app->speed -= 1;
 		//mvwprintw(app->render.w_left, 1, 1, "%d   %d", key, app->line);
 	}
-//	wrefresh(app->render.w_left);
+	if (app->render.run)
+		mvwprintw(app->render.w_right, 1, 3, "** RUNNING **");
+	else
+		mvwprintw(app->render.w_right, 1, 3, "** PAUSED ** ");
+	mvwprintw(app->render.w_right, 2, 3, "Vitesse : %d", app->speed);
+	wrefresh(app->render.w_right);
+}
+
+void	ft_print_piece(t_app *app)
+{
+	int 	max_y;
+	int 	y;
+
+	max_y = app->piece.y;
+	y = 0;
+	while (y < max_y)
+	{
+		mvwprintw(app->render.w_right, y + 10, 3, "%s", app->piece.tab[y]);
+		y++;
+	}
+}
+
+void	ft_menu(t_app *app)
+{
+	wclear(app->render.w_right);
+	if (app->render.run)
+		mvwprintw(app->render.w_right, 1, 3, "** RUNNING **");
+	else
+		mvwprintw(app->render.w_right, 1, 3, "** PAUSED ** ");
+	mvwprintw(app->render.w_right, 2, 3, "Vitesse : %d", app->speed);
+	mvwprintw(app->render.w_right, 3, 3, "Tour du joueur : %d", app->current_player.id);
+	wattron(app->render.w_right, COLOR_PAIR(app->current_player.id + 1));
+	mvwprintw(app->render.w_right, 5, 3, "%s             ", app->current_player.name);
+	wattroff(app->render.w_right, COLOR_PAIR(app->current_player.id + 1));
+	if (app->piece.tab)
+		ft_print_piece(app);
 }
 
 int		ft_nc_update(t_app *app)
 {
-	ft_nc_print_arena(app);
+	if (app->mode == 2)
+		ft_nc_print_arena(app);
+	if (app->mode == 1)
+		ft_menu(app);
 	wrefresh(app->render.w_left);
-	//usleep(10000);
+	wrefresh(app->render.w_right);
+	usleep(1000000 / app->speed);
 	return (1);
 }
 
@@ -97,13 +139,13 @@ static void	ft_nc_init_pair(void)
 
 	init_pair(1, COL_GREY, COLOR_BLACK);
 	init_pair(2, COL_RED, COLOR_BLACK);
-	init_pair(3, COL_GREEN, COLOR_BLACK);
-	init_pair(4, COL_BLUE, COLOR_BLACK);
-	init_pair(5, COL_YELLOW, COLOR_BLACK);
-	init_pair(6, COLOR_BLACK, COL_LIGHT_RED);
-	init_pair(7, COL_LIGHT_GREEN, COLOR_BLACK);
-	init_pair(8, COLOR_BLACK, COL_LIGHT_BLUE);
-	init_pair(9, COL_LIGHT_YELLOW, COLOR_BLACK);
+	//init_pair(3, COL_GREEN, COLOR_BLACK);
+	init_pair(3, COL_BLUE, COLOR_BLACK);
+	//init_pair(5, COL_YELLOW, COLOR_BLACK);
+	init_pair(4, COLOR_BLACK, COL_LIGHT_RED);
+	//init_pair(7, COL_LIGHT_GREEN, COLOR_BLACK);
+	init_pair(5, COLOR_BLACK, COL_LIGHT_BLUE);
+	//init_pair(9, COL_LIGHT_YELLOW, COLOR_BLACK);
 }
 
 void		ft_nc_init_color(void)

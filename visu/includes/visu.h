@@ -63,6 +63,7 @@ typedef struct  	s_app
 	int				p1_score;
 	int				p2_score;
 	int 			start;
+	int				speed;
 }					t_app;
 
 

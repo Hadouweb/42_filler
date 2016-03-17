@@ -23,11 +23,13 @@ int		main(void)
 {
 	char	*line;
 	t_app	app;
+	int		nc;
 
 	line = NULL;
 	ft_bzero(&app, sizeof(t_app));
 	app.list_tmp = NULL;
-	ft_nc_init(&app);
+	app.speed = 1;
+	nc = 0;
 	while (1)
 	{
 		//printf("%s\n", line);
@@ -35,6 +37,8 @@ int		main(void)
 		{
 			if (get_next_line(0, &line) > 0)
 			{
+				if (!nc && app.board.x && ++nc)
+					ft_nc_init(&app);
 				ft_parsing(&app, line);
 				ft_strdel(&line);
 				app.line++;

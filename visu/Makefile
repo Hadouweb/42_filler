@@ -16,6 +16,7 @@ SRC = 	$(SRCPATH)/main.c\
 		$(SRCPATH)/ft_debug.c\
 		$(SRCPATH)/ft_util.c\
 		$(SRCPATH)/ft_ncurses.c\
+		$(SRCPATH)/ft_nc_init.c\
 
 OBJ = $(SRC:.c=.o)
 

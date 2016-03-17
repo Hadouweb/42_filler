@@ -28,7 +28,7 @@ int		main(void)
 	line = NULL;
 	ft_bzero(&app, sizeof(t_app));
 	app.list_tmp = NULL;
-	app.speed = 1;
+	app.speed = 20;
 	nc = 0;
 	while (1)
 	{

@@ -101,7 +101,7 @@ void	ft_menu(t_app *app)
 	mvwprintw(app->render.w_right, 3, 3, "Vitesse : %d ", app->speed);
 	mvwprintw(app->render.w_right, 5, 3, "Tour du joueur : %d", app->current_player.id);
 	wattron(app->render.w_right, COLOR_PAIR(app->current_player.id + 1));
-	mvwprintw(app->render.w_right, 5, 3, "%s             ", app->current_player.name);
+	mvwprintw(app->render.w_right, 6, 3, "%s             ", app->current_player.name);
 	wattroff(app->render.w_right, COLOR_PAIR(app->current_player.id + 1));
 	mvwprintw(app->render.w_right, 8, 3, "Piece :");
 	if (app->piece.tab)
@@ -110,9 +110,9 @@ void	ft_menu(t_app *app)
 
 int		ft_nc_update(t_app *app)
 {
-	if (app->mode == 2)
+	if (app->mode == 2 || !app->start)
 		ft_nc_print_arena(app);
-	else if (app->mode == 1)
+	if (app->mode == 1 || !app->start)
 		ft_menu(app);
 	wrefresh(app->render.w_left);
 	wrefresh(app->render.w_right);

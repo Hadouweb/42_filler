@@ -31,6 +31,7 @@ void	ft_set_point_top(int player, t_app *app, int y, int x)
 	t_point	p;
 
 	bzero(&p, sizeof(t_point));
+
 	p.x = x;
 	p.y = y;
 	if (player == 1)
@@ -79,24 +80,27 @@ void	ft_place_piece_right(t_app *app)
 {
 	int		x;
 	int		y;
+	int		y_max;
 
-	y = app->board.y;
-	while (y--)
+	y_max = app->board.y;
+	x = app->board.x;
+	while (--x)
 	{
-		x = app->board.y;
-		while (x--)
+		y = 0;
+		while (y < y_max)
 		{
 			if (ft_is_valid_pos(app, y, x))
 			{
 				ft_print(y, x);
 				return ;
 			}
+			y++;
 		}
 	}
 	app->play = 0;
 }
 
-void	ft_place_piece_top(t_app *app)
+void	ft_place_piece_bot(t_app *app)
 {
 	int		x;
 	int		y;
@@ -117,7 +121,7 @@ void	ft_place_piece_top(t_app *app)
 	app->play = 0;
 }
 
-void	ft_place_piece_bot(t_app *app)
+void	ft_place_piece_top(t_app *app)
 {
 	int		x;
 	int		y;

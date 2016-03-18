@@ -51,6 +51,8 @@ void	ft_set_current_player(t_app *app, char *str)
 		else
 			app->current_player = app->p2;
 		//ft_debug_current_player(app);
+		ft_nc_update(app);
+		app->start = 1;
 	}
 }
 
@@ -89,7 +91,6 @@ void	ft_set_board(t_app *app, char *str)
 			ft_clear_list(app);
 			//ft_debug_board(app);
 			ft_nc_update(app);
-			app->start = 1;
 			app->mode = 0;
 			app->board.current_line = 0;
 		}

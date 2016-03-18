@@ -30,8 +30,8 @@ void	ft_set_data(t_app *app, char *line)
 		if (app->mode == 1 && ++app->current_line_board)
 		{
 			if (app->current_line_board > 1)
-				ft_lstpush_back(&app->list_tmp, line, ft_strlen(line));
-			if (app->current_line_board == app->board.x + 1)
+				ft_lstpush_back(&app->list_tmp, line + 4, ft_strlen(line + 4));
+			if (app->current_line_board == app->board.y + 1)
 			{
 				app->board.tab = (char**)ft_lsttotab(app->list_tmp);
 				ft_clear_list(&app->list_tmp);
@@ -42,11 +42,11 @@ void	ft_set_data(t_app *app, char *line)
 		else if (app->mode == 2 && ++app->current_line_piece)
 		{
 			ft_lstpush_back(&app->list_tmp, line, ft_strlen(line));
-			if (app->current_line_piece == app->piece.x)
+			if (app->current_line_piece == app->piece.y)
 			{
 				app->piece.tab = (char**)ft_lsttotab(app->list_tmp);
-				ft_generate_pos(app);
 				ft_clear_list(&app->list_tmp);
+				ft_generate_pos(app);
 				app->current_line_piece = 0;
 				app->mode = 0;
 			}

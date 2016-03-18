@@ -50,6 +50,7 @@ typedef struct 		s_app
 void				ft_debug_list(t_list *list);
 void				ft_debug_tab_b(t_app *app);
 void				ft_debug_tab_p(t_app *app);
+void				ft_debug_pos(t_app *app);
 
 void				ft_init_board(t_app *app, char *str);
 void				ft_init_piece(t_app *app, char *str);

@@ -43,7 +43,7 @@ typedef struct 		s_app
 	int				current_line_board;
 	char			me;
 	char			enemy;
-	int				loop;
+	int				play;
 	t_pos			pos[2];
 }					t_app;
 
@@ -63,6 +63,27 @@ void				ft_set_board(t_app *app, t_list *l);
 void				ft_set_piece(t_app *app, t_list *l);
 
 int					ft_check_mode(t_app *app, char *str);
+void				ft_print(int x, int y);
 
-void				ft_loop(t_app *app, char *line);
+void				ft_set_data(t_app *app, char *line);
+
+void				ft_generate_pos(t_app *app);
+int					ft_is_valid_pos(t_app *app, int x, int y);
+void				ft_calculate_edge(t_app *app);
+
+void				ft_calc_right(t_app *app);
+void				ft_calc_left(t_app *app);
+void				ft_calc_top(t_app *app);
+void				ft_calc_bot(t_app *app);
+
+void				ft_place_piece_left(t_app *app);
+void				ft_place_piece_right(t_app *app);
+void				ft_place_piece_top(t_app *app);
+void				ft_place_piece_bot(t_app *app);
+
+void				ft_set_point_right(int player, t_app *app, int x, int y);
+void				ft_set_point_left(int player, t_app *app, int x, int y);
+void				ft_set_point_top(int player, t_app *app, int x, int y);
+void				ft_set_point_bot(int player, t_app *app, int x, int y);
+
 #endif

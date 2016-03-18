@@ -23,60 +23,33 @@ void	ft_set_id_player(t_app *app, char *str)
 	}
 }
 
-void	ft_set_board(t_app *app, t_list *l)
+void	ft_set_data(t_app *app, char *line)
 {
-	int		x;
-	int		y;
-	char	*str;
-
-	x = 0;
-	str = NULL;
-	while (l)
+	if (!ft_check_mode(app, line))
 	{
-		str = l->content;
-		if (*str && str[0] == '0')
+		if (app->mode == 1 && ++app->current_line_board)
 		{
-			while (*str && *str != ' ')
-				str++;
-			if (*str)
-				str++;
-			y = 0;
-			while (y < app->board.y && *str)
+			if (app->current_line_board > 1)
+				ft_lstpush_back(&app->list_tmp, line, ft_strlen(line));
+			if (app->current_line_board == app->board.x + 1)
 			{
-				app->board.tab[x][y] = *str;
-				y++;
-				str++;
+				app->board.tab = (char**)ft_lsttotab(app->list_tmp);
+				ft_clear_list(&app->list_tmp);
+				app->current_line_board = 0;
+				app->mode = 0;
 			}
-			x++;
 		}
-		l = l->next;
-	}
-	//ft_debug_tab_b(g);
-}
-
-void	ft_set_piece(t_app *app, t_list *l)
-{
-	int		x;
-	int		y;
-	int		i;
-	char	*str;
-
-	x = 0;
-	str = NULL;
-	while (l)
-	{
-		str = l->content;
-		y = 0;
-		i = 0;
-		while (y < app->piece.y && str[i])
+		else if (app->mode == 2 && ++app->current_line_piece)
 		{
-			app->piece.tab[x][y] = str[i];
-			y++;
-			i++;
+			ft_lstpush_back(&app->list_tmp, line, ft_strlen(line));
+			if (app->current_line_piece == app->piece.x)
+			{
+				app->piece.tab = (char**)ft_lsttotab(app->list_tmp);
+				ft_generate_pos(app);
+				ft_clear_list(&app->list_tmp);
+				app->current_line_piece = 0;
+				app->mode = 0;
+			}
 		}
-		app->piece.tab[x][y] = '\0';
-		x++;
-		l = l->next;
 	}
-	//ft_debug_tab_p(g);
 }

@@ -16,3 +16,16 @@ int		ft_check_mode(t_app *app, char *str)
 	}
 	return (0);
 }
+
+void	ft_print(int x, int y)
+{
+	char	*str_x;
+	char	*str_y;
+
+	str_x = ft_itoa(x);
+	str_y = ft_itoa(y);
+	write(1, str_x, ft_strlen(str_x));
+	write(1, " ", 1);
+	write(1, str_y, ft_strlen(str_y));
+	write(1, "\n", 1);
+}

@@ -1,5 +1,5 @@
 
-void	ft_debug_pos(t_game *g)
+void	ft_debug_pos(t_app *app)
 {
 	fprintf(stderr, "________p1 right : %d %d\n", g->pos[0].right.x, g->pos[0].right.y);
 	fprintf(stderr, "________p1 left : %d %d\n", g->pos[0].left.x, g->pos[0].left.y);
@@ -11,7 +11,7 @@ void	ft_debug_pos(t_game *g)
 	fprintf(stderr, "________p2 bot : %d %d\n", g->pos[1].bot.x, g->pos[1].bot.y);
 }
 
-void	ft_set_point_right(int player, t_game *g, int x, int y)
+void	ft_set_point_right(int player, t_app *app, int x, int y)
 {
 	t_point	p;
 
@@ -30,7 +30,7 @@ void	ft_set_point_right(int player, t_game *g, int x, int y)
 	}
 }
 
-void	ft_set_point_left(int player, t_game *g, int x, int y)
+void	ft_set_point_left(int player, t_app *app, int x, int y)
 {
 	t_point	p;
 
@@ -49,7 +49,7 @@ void	ft_set_point_left(int player, t_game *g, int x, int y)
 	}
 }
 
-void	ft_set_point_top(int player, t_game *g, int x, int y)
+void	ft_set_point_top(int player, t_app *app, int x, int y)
 {
 	t_point	p;
 
@@ -68,7 +68,7 @@ void	ft_set_point_top(int player, t_game *g, int x, int y)
 	}
 }
 
-void	ft_set_point_bot(int player, t_game *g, int x, int y)
+void	ft_set_point_bot(int player, t_app *app, int x, int y)
 {
 	t_point	p;
 
@@ -87,7 +87,7 @@ void	ft_set_point_bot(int player, t_game *g, int x, int y)
 	}
 }
 
-void	ft_calc_right(t_game *g)
+void	ft_calc_right(t_app *app)
 {
 	int		x_max;
 	int		y_max;
@@ -112,7 +112,7 @@ void	ft_calc_right(t_game *g)
 	}
 }
 
-void	ft_calc_left(t_game *g)
+void	ft_calc_left(t_app *app)
 {
 	int		x_max;
 	int		y_max;
@@ -132,7 +132,7 @@ void	ft_calc_left(t_game *g)
 	}
 }
 
-void	ft_calc_top(t_game *g)
+void	ft_calc_top(t_app *app)
 {
 	int		x_max;
 	int		y_max;
@@ -152,7 +152,7 @@ void	ft_calc_top(t_game *g)
 	}
 }
 
-void	ft_calc_bot(t_game *g)
+void	ft_calc_bot(t_app *app)
 {
 	int		x_max;
 	int		y_max;
@@ -177,7 +177,7 @@ void	ft_calc_bot(t_game *g)
 	}
 }
 
-void	ft_place_piece_left(t_game *g)
+void	ft_place_piece_left(t_app *app)
 {
 	int		x;
 	int		y;
@@ -200,7 +200,7 @@ void	ft_place_piece_left(t_game *g)
 	g->loop = 0;
 }
 
-void	ft_place_piece_right(t_game *g)
+void	ft_place_piece_right(t_app *app)
 {
 	int		x;
 	int		y;
@@ -221,7 +221,7 @@ void	ft_place_piece_right(t_game *g)
 	g->loop = 0;
 }
 
-void	ft_place_piece_top(t_game *g)
+void	ft_place_piece_top(t_app *app)
 {
 	int		x;
 	int		y;
@@ -242,7 +242,7 @@ void	ft_place_piece_top(t_game *g)
 	g->loop = 0;
 }
 
-void	ft_place_piece_bot(t_game *g)
+void	ft_place_piece_bot(t_app *app)
 {
 	int		x;
 	int		y;
@@ -265,7 +265,7 @@ void	ft_place_piece_bot(t_game *g)
 	g->loop = 0;
 }
 
-void	ft_calc_dist(t_game *g)
+void	ft_calc_dist(t_app *app)
 {
 	ft_calc_right(g);
 	ft_calc_left(g);

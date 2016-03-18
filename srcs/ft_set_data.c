@@ -1,6 +1,6 @@
 #include "filler.h"
 
-void	ft_set_id_player(t_game *g, char *str)
+void	ft_set_id_player(t_app *app, char *str)
 {
 	int		i;
 
@@ -9,21 +9,21 @@ void	ft_set_id_player(t_game *g, char *str)
 	{
 		if (ft_strlen(str) >= 12)
 			str += 10;
-		g->id_player = str[0];
-		if (g->id_player == '1')
+		app->id_player = str[0];
+		if (app->id_player == '1')
 		{
-			g->me = 'o';
-			g->enemy = 'x';
+			app->me = 'o';
+			app->enemy = 'x';
 		}
 		else
 		{
-			g->me = 'x';
-			g->enemy = 'o';
+			app->me = 'x';
+			app->enemy = 'o';
 		}
 	}
 }
 
-void	ft_set_board(t_game *g, t_line *l)
+void	ft_set_board(t_app *app, t_list *l)
 {
 	int		x;
 	int		y;
@@ -33,7 +33,7 @@ void	ft_set_board(t_game *g, t_line *l)
 	str = NULL;
 	while (l)
 	{
-		str = l->str;
+		str = l->content;
 		if (*str && str[0] == '0')
 		{
 			while (*str && *str != ' ')
@@ -41,9 +41,9 @@ void	ft_set_board(t_game *g, t_line *l)
 			if (*str)
 				str++;
 			y = 0;
-			while (y < g->board->y && *str)
+			while (y < app->board.y && *str)
 			{
-				g->board->b[x][y] = *str;
+				app->board.tab[x][y] = *str;
 				y++;
 				str++;
 			}
@@ -54,7 +54,7 @@ void	ft_set_board(t_game *g, t_line *l)
 	//ft_debug_tab_b(g);
 }
 
-void	ft_set_piece(t_game *g, t_line *l)
+void	ft_set_piece(t_app *app, t_list *l)
 {
 	int		x;
 	int		y;
@@ -65,16 +65,16 @@ void	ft_set_piece(t_game *g, t_line *l)
 	str = NULL;
 	while (l)
 	{
-		str = l->str;
+		str = l->content;
 		y = 0;
 		i = 0;
-		while (y < g->piece->y && str[i])
+		while (y < app->piece.y && str[i])
 		{
-			g->piece->p[x][y] = str[i];
+			app->piece.tab[x][y] = str[i];
 			y++;
 			i++;
 		}
-		g->piece->p[x][y] = '\0';
+		app->piece.tab[x][y] = '\0';
 		x++;
 		l = l->next;
 	}

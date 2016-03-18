@@ -17,32 +17,22 @@ char	**ft_generate_tab(int x, int y)
 	return (tab);
 }
 
-void	ft_init_board(t_game *g, char *str)
+void	ft_init_board(t_app *app, char *str)
 {
-	t_board		*b;
-
-	if ((b = (t_board*)ft_memalloc(sizeof(t_board))) == NULL)
-		ft_putstr_fd("Error malloc\n", 2);
-	g->board = b;
 	str += 8;
-	g->board->x = ft_atoi(str);
+	app->board.x = ft_atoi(str);
 	while (*str && *str != ' ')
 		str++;
-	g->board->y = ft_atoi(str);
-	g->board->b = ft_generate_tab(g->board->x, g->board->y);
+	app->board.y = ft_atoi(str);
+	app->board.tab = ft_generate_tab(app->board.x, app->board.y);
 }
 
-void	ft_init_piece(t_game *g, char *str)
+void	ft_init_piece(t_app *app, char *str)
 {
-	t_piece		*p;
-
-	if ((p = (t_piece*)ft_memalloc(sizeof(t_piece))) == NULL)
-		ft_putstr_fd("Error malloc\n", 2);
-	g->piece = p;
 	str += 6;
-	g->piece->x = ft_atoi(str);
+	app->piece.x = ft_atoi(str);
 	while (*str && *str != ' ')
 		str++;
-	g->piece->y = ft_atoi(str);
-	g->piece->p = ft_generate_tab(g->piece->x, g->piece->y);
+	app->piece.y = ft_atoi(str);
+	app->piece.tab = ft_generate_tab(app->piece.x, app->piece.y);
 }

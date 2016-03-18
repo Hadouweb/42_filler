@@ -4,12 +4,6 @@
 # include "libft.h"
 # include <stdio.h>
 
-typedef struct 		s_line
-{
-	char			*str;
-	struct s_line	*next;
-}					t_line;
-
 typedef struct 		s_point
 {
 	int				x;
@@ -28,46 +22,47 @@ typedef struct 		s_piece
 {
 	int				x;
 	int				y;
-	char			**p;
+	char			**tab;
 }					t_piece;
 
 typedef struct 		s_board
 {
 	int				x;
 	int				y;
-	char			**b;
+	char			**tab;
 }					t_board;
 
-typedef struct 		s_game
+typedef struct 		s_app
 {
 	char			id_player;
-	t_board			*board;
-	t_piece			*piece;
+	t_board			board;
+	t_piece			piece;
+	t_list			*list_tmp;
 	int				mode;
-	int				clp;
-	int				clb;
+	int				current_line_piece;
+	int				current_line_board;
 	char			me;
 	char			enemy;
 	int				loop;
 	t_pos			pos[2];
-}					t_game;
+}					t_app;
 
-void				ft_debug_list(t_line *list);
-void				ft_debug_tab_b(t_game *g);
-void				ft_debug_tab_p(t_game *g);
+void				ft_debug_list(t_list *list);
+void				ft_debug_tab_b(t_app *app);
+void				ft_debug_tab_p(t_app *app);
 
-void				ft_init_board(t_game *g, char *str);
-void				ft_init_piece(t_game *g, char *str);
+void				ft_init_board(t_app *app, char *str);
+void				ft_init_piece(t_app *app, char *str);
 
-t_line				*ft_create_node(char *str);
-void				ft_list_push_back(t_line **l, char *str);
-void				ft_clear_list(t_line **list);
+t_list				*ft_create_node(char *str);
+void				ft_list_push_back(t_list **l, char *str);
+void				ft_clear_list(t_list **list);
 
-void				ft_set_id_player(t_game *g, char *str);
-void				ft_set_board(t_game *g, t_line *l);
-void				ft_set_piece(t_game *g, t_line *l);
+void				ft_set_id_player(t_app *app, char *str);
+void				ft_set_board(t_app *app, t_list *l);
+void				ft_set_piece(t_app *app, t_list *l);
 
-int					ft_check_mode(t_game *g, char *str);
+int					ft_check_mode(t_app *app, char *str);
 
-void				ft_loop(t_game *g, char *line, t_line **lst_b, t_line **lst_p);
+void				ft_loop(t_app *app, char *line);
 #endif

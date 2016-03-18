@@ -10,6 +10,20 @@ typedef struct 		s_line
 	struct s_line	*next;
 }					t_line;
 
+typedef struct 		s_point
+{
+	int				x;
+	int				y;	
+}					t_point;
+
+typedef struct 		s_pos
+{
+	t_point			left;
+	t_point			right;
+	t_point			top;
+	t_point			bot;
+}					t_pos;
+
 typedef struct 		s_piece
 {
 	int				x;
@@ -35,6 +49,7 @@ typedef struct 		s_game
 	char			me;
 	char			enemy;
 	int				loop;
+	t_pos			pos[2];
 }					t_game;
 
 void				ft_debug_list(t_line *list);

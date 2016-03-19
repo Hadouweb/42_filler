@@ -56,7 +56,8 @@ struct 				s_app
 	int				id_current_player;
 	int				play;
 	t_pos			pos[2];
-	t_dist			dist[4];
+	t_dist			dist[8];
+	char			block;
 };
 
 void				ft_debug_list(t_list *list);
@@ -87,10 +88,15 @@ void				ft_calc_left(t_app *app);
 void				ft_calc_top(t_app *app);
 void				ft_calc_bot(t_app *app);
 
-void				ft_place_piece_left(t_app *app);
-void				ft_place_piece_right(t_app *app);
-void				ft_place_piece_top(t_app *app);
-void				ft_place_piece_bot(t_app *app);
+void				ft_place_piece_top_left(t_app *app);
+void				ft_place_piece_top_right(t_app *app);
+void				ft_place_piece_bot_left(t_app *app);
+void				ft_place_piece_bot_right(t_app *app);
+
+void				ft_place_piece_left_bot(t_app *app);
+void				ft_place_piece_left_top(t_app *app);
+void				ft_place_piece_right_bot(t_app *app);
+void				ft_place_piece_right_top(t_app *app);
 
 void				ft_set_point_right(int player, t_app *app, int x, int y);
 void				ft_set_point_left(int player, t_app *app, int x, int y);

@@ -29,3 +29,11 @@ void	ft_print(int y, int x)
 	write(1, str_x, ft_strlen(str_x));
 	write(1, "\n", 1);
 }
+
+int		ft_abs(int a, int b)
+{
+	if (a > b)
+		return (a - b);
+	else
+		return (b - a);
+}

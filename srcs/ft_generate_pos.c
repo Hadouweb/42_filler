@@ -8,7 +8,6 @@ int		ft_is_valid_pos(t_app *app, int y, int x)
 
 	py = 0;
 	star = 0;
-	//fprintf(stderr, "___%d %d\n", y, x);
 	while (py < app->piece.y)
 	{
 		px = 0;
@@ -31,9 +30,22 @@ int		ft_is_valid_pos(t_app *app, int y, int x)
 	return (1);
 }
 
+void	ft_debug_dist(t_app *app)
+{
+	fprintf(stderr, "______ left  : %d\n", app->dist.left);
+	fprintf(stderr, "______ right : %d\n", app->dist.right);
+	fprintf(stderr, "______ top   : %d\n", app->dist.top);
+	fprintf(stderr, "______ bot   : %d\n", app->dist.bot);
+}
+
 void	ft_generate_pos(t_app *app)
 {
 	ft_calculate_edge(app);
+	app->dist.left = ft_abs(app->pos[0].left.x, app->pos[1].left.x);
+	app->dist.right = ft_abs(app->pos[0].right.x, app->pos[1].right.x);
+	app->dist.top = ft_abs(app->pos[0].top.y, app->pos[1].top.y);
+	app->dist.bot = ft_abs(app->pos[0].bot.y, app->pos[1].bot.y);
+	ft_debug_dist(app);
 	if (app->pos[0].left.x - app->pos[1].right.x < 0)
 		ft_place_piece_left(app);
 	else if (app->pos[0].right.x - app->pos[1].left.x > 0)

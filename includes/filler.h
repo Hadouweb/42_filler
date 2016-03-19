@@ -32,6 +32,15 @@ typedef struct 		s_board
 	char			**tab;
 }					t_board;
 
+typedef struct 		s_dist
+{
+	int				left;
+	int				right;
+	int				top;
+	int				bot;
+}					t_dist;
+
+
 typedef struct 		s_app
 {
 	char			id_player;
@@ -45,6 +54,7 @@ typedef struct 		s_app
 	char			enemy;
 	int				play;
 	t_pos			pos[2];
+	t_dist			dist;
 }					t_app;
 
 void				ft_debug_list(t_list *list);
@@ -65,6 +75,7 @@ void				ft_set_piece(t_app *app, t_list *l);
 
 int					ft_check_mode(t_app *app, char *str);
 void				ft_print(int x, int y);
+int					ft_abs(int a, int b);
 
 void				ft_set_data(t_app *app, char *line);
 

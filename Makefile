@@ -17,8 +17,9 @@ SRC = 	$(SRCPATH)/main.c\
 		$(SRCPATH)/ft_set_data.c\
 		$(SRCPATH)/ft_util.c\
 		$(SRCPATH)/ft_generate_pos.c\
-		$(SRCPATH)/ft_save.c\
+		$(SRCPATH)/ft_set_point.c\
 		$(SRCPATH)/ft_browse_board.c\
+		$(SRCPATH)/ft_place_piece.c\
 
 OBJ = $(SRC:.c=.o)
 

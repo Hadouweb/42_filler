@@ -1,58 +1,5 @@
 #include "filler.h"
 
-void	ft_set_point_right(int player, t_app *app, int y, int x)
-{
-	t_point	p;
-
-	bzero(&p, sizeof(t_point));
-	p.x = x;
-	p.y = y;
-	if (player == 1)
-		app->pos[0].right = p;
-	else
-		app->pos[1].right = p;
-}
-
-void	ft_set_point_left(int player, t_app *app, int y, int x)
-{
-	t_point	p;
-
-	bzero(&p, sizeof(t_point));
-	p.x = x;
-	p.y = y;
-	if (player == 1)
-		app->pos[0].left = p;
-	else
-		app->pos[1].left = p;
-}
-
-void	ft_set_point_top(int player, t_app *app, int y, int x)
-{
-	t_point	p;
-
-	bzero(&p, sizeof(t_point));
-
-	p.x = x;
-	p.y = y;
-	if (player == 1)
-		app->pos[0].top = p;
-	else
-		app->pos[1].top = p;
-}
-
-void	ft_set_point_bot(int player, t_app *app, int y, int x)
-{
-	t_point	p;
-
-	bzero(&p, sizeof(t_point));
-	p.x = x;
-	p.y = y;
-	if (player == 1)
-		app->pos[0].bot = p;
-	else
-		app->pos[1].bot = p;
-}
-
 void	ft_place_piece_left(t_app *app)
 {
 	int		x;

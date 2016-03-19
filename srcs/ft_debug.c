@@ -64,3 +64,11 @@ void	ft_print_pos(int x, int y)
 	ft_putnbr_fd(y, 2);
 	ft_putstr_fd("\n", 2);
 }
+
+void	ft_debug_dist(t_app *app)
+{
+	fprintf(stderr, "______ left  : %d\n", app->dist[0].value);
+	fprintf(stderr, "______ right : %d\n", app->dist[1].value);
+	fprintf(stderr, "______ top   : %d\n", app->dist[2].value);
+	fprintf(stderr, "______ bot   : %d\n", app->dist[3].value);
+}

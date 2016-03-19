@@ -30,30 +30,47 @@ int		ft_is_valid_pos(t_app *app, int y, int x)
 	return (1);
 }
 
-void	ft_debug_dist(t_app *app)
+void	ft_init_way(t_app *app)
 {
-	fprintf(stderr, "______ left  : %d\n", app->dist.left);
-	fprintf(stderr, "______ right : %d\n", app->dist.right);
-	fprintf(stderr, "______ top   : %d\n", app->dist.top);
-	fprintf(stderr, "______ bot   : %d\n", app->dist.bot);
+	app->dist[0].f = ft_place_piece_left;
+	app->dist[1].f = ft_place_piece_right;
+	app->dist[2].f = ft_place_piece_top;
+	app->dist[3].f = ft_place_piece_bot;
+}
+
+void	ft_best_way(t_app *app)
+{
+	int		i;
+	t_dist	best;
+
+	i = 0;
+	best = app->dist[0];
+	while (i < 4)
+	{
+		if (app->dist[i].value < best.value)
+		{
+			best = app->dist[i];
+			i = 0;
+		}
+		else
+			i++;
+	}
+	best.f(app);
 }
 
 void	ft_generate_pos(t_app *app)
 {
+	int		me;
+	int		en;
+
 	ft_calculate_edge(app);
-	app->dist.left = ft_abs(app->pos[0].left.x, app->pos[1].left.x);
-	app->dist.right = ft_abs(app->pos[0].right.x, app->pos[1].right.x);
-	app->dist.top = ft_abs(app->pos[0].top.y, app->pos[1].top.y);
-	app->dist.bot = ft_abs(app->pos[0].bot.y, app->pos[1].bot.y);
-	ft_debug_dist(app);
-	if (app->pos[0].left.x - app->pos[1].right.x < 0)
-		ft_place_piece_left(app);
-	else if (app->pos[0].right.x - app->pos[1].left.x > 0)
-		ft_place_piece_right(app);
-	else if (app->pos[0].top.y - app->pos[1].bot.y > 0)
-		ft_place_piece_bot(app);
-	else if (app->pos[0].bot.y - app->pos[1].top.y < 0)
-		ft_place_piece_top(app);
-	else
-		ft_place_piece_bot(app);
+	me = app->id_me;
+	en = app->id_enemy;
+	ft_init_way(app);
+	app->dist[0].value = app->pos[en].left.x - app->pos[me].left.x;
+	app->dist[1].value = app->pos[me].right.x - app->pos[en].right.x;
+	app->dist[2].value = app->pos[en].top.y - app->pos[me].top.y;
+	app->dist[3].value = app->pos[me].bot.y - app->pos[en].bot.y;
+	//ft_debug_dist(app);
+	ft_best_way(app);
 }

@@ -1,6 +1,6 @@
 #include "filler.h"
 
-void	ft_set_id_player(t_app *app, char *str)
+void	ft_set_player(t_app *app, char *str)
 {
 	int		i;
 
@@ -14,42 +14,61 @@ void	ft_set_id_player(t_app *app, char *str)
 		{
 			app->me = 'o';
 			app->enemy = 'x';
+			app->id_enemy = 1;
 		}
 		else
 		{
 			app->me = 'x';
 			app->enemy = 'o';
+			app->id_me = 1;
 		}
 	}
 }
 
-void	ft_set_data(t_app *app, char *line)
+void	ft_set_current_player(t_app *app, char *str)
 {
-	if (!ft_check_mode(app, line))
+	if (ft_strlen(str) > 10)
 	{
-		if (app->mode == 1 && ++app->current_line_board)
+		str += 6;
+		if (str[0] == 'O')
+			app->id_current_player = 0;
+		else
+			app->id_current_player = 1;
+	}
+}
+
+void	ft_set_board(t_app *app, char *str)
+{
+	if (ft_strlen(str) >= (size_t)app->board.x)
+	{
+		str += 4;
+		if (app->board.current_line >= 1)
+			ft_lstpush_back(&app->list_tmp, str, ft_strlen(str) + 1);
+		app->board.current_line++;
+		if (app->board.current_line == app->board.y + 1)
 		{
-			if (app->current_line_board > 1)
-				ft_lstpush_back(&app->list_tmp, line + 4, ft_strlen(line + 4));
-			if (app->current_line_board == app->board.y + 1)
-			{
-				app->board.tab = (char**)ft_lsttotab(app->list_tmp);
-				ft_clear_list(&app->list_tmp);
-				app->current_line_board = 0;
-				app->mode = 0;
-			}
-		}
-		else if (app->mode == 2 && ++app->current_line_piece)
-		{
-			ft_lstpush_back(&app->list_tmp, line, ft_strlen(line));
-			if (app->current_line_piece == app->piece.y)
-			{
-				app->piece.tab = (char**)ft_lsttotab(app->list_tmp);
-				ft_clear_list(&app->list_tmp);
-				ft_generate_pos(app);
-				app->current_line_piece = 0;
-				app->mode = 0;
-			}
+			app->board.tab = (char**)ft_lsttotab(app->list_tmp);
+			ft_clear_list(app);
+			app->mode = 0;
+			app->board.current_line = 0;
 		}
 	}
 }
+
+void	ft_set_piece(t_app *app, char *str)
+{
+	if (*str)
+	{
+		ft_lstpush_back(&app->list_tmp, str, ft_strlen(str) + 1);
+		app->piece.current_line++;
+		if (app->piece.current_line == app->piece.y)
+		{
+			app->piece.tab = (char**)ft_lsttotab(app->list_tmp);
+			ft_clear_list(app);
+			ft_generate_pos(app);
+			app->mode = 0;
+			app->piece.current_line = 0;
+		}
+	}
+}
+

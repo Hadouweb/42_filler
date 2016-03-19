@@ -1,22 +1,5 @@
 #include "filler.h"
 
-int		ft_check_mode(t_app *app, char *str)
-{
-	if (ft_strlen(str) >= 7 && ft_strstr(str, "Plateau"))
-	{
-		app->mode = 1;
-		ft_init_board(app, str);
-		return (1);
-	}
-	else if (ft_strlen(str) >= 5 && ft_strstr(str, "Piece"))
-	{
-		app->mode = 2;
-		ft_init_piece(app, str);
-		return (1);
-	}
-	return (0);
-}
-
 void	ft_print(int y, int x)
 {
 	char	*str_y;
@@ -30,10 +13,38 @@ void	ft_print(int y, int x)
 	write(1, "\n", 1);
 }
 
-int		ft_abs(int a, int b)
+void	ft_clear_list(t_app *app)
 {
-	if (a > b)
-		return (a - b);
-	else
-		return (b - a);
+	t_list	*l;
+	t_list	*tmp;
+
+	l = app->list_tmp;
+	tmp = NULL;
+	while (l)
+	{
+		free(l->content);
+		l->content = NULL;
+		l->content_size = 0;
+		tmp = l;
+		free(l);
+		l = tmp->next;
+	}
+	app->list_tmp = NULL;
+}
+
+void	ft_clear_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	if (tab && tab[0])
+	{	
+		while (tab[i])
+		{
+			ft_strdel(&tab[i]);
+			i++;
+		}
+		free(tab);
+		tab = NULL;
+	}
 }

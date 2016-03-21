@@ -48,6 +48,7 @@ void	ft_set_board(t_app *app, char *str)
 		if (app->board.current_line == app->board.y + 1)
 		{
 			app->board.tab = (char**)ft_lsttotab(app->list_tmp);
+			app->board.tmp_tab = (char**)ft_lsttotab(app->list_tmp);
 			ft_clear_list(app);
 			app->mode = 0;
 			app->board.current_line = 0;

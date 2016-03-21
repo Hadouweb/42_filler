@@ -33,13 +33,15 @@ typedef struct 		s_board
 	int				x;
 	int				y;
 	char			**tab;
+	char			**tmp_tab;
 	int				current_line;
 }					t_board;
 
 typedef struct 		s_dist
 {
 	int				value;
-	void			(*f)(t_app *);
+	int				id;
+	int				block;
 }					t_dist;
 
 struct 				s_app
@@ -56,7 +58,12 @@ struct 				s_app
 	int				id_current_player;
 	int				play;
 	t_pos			pos[2];
-	t_dist			dist[8];
+	t_dist			dist[4];
+	void			(*f[8])(t_app *);
+	int				best_y;
+	int				best_x;
+	int				diff_dist;
+	int				find;
 	char			block;
 };
 
@@ -102,5 +109,7 @@ void				ft_set_point_right(int player, t_app *app, int x, int y);
 void				ft_set_point_left(int player, t_app *app, int x, int y);
 void				ft_set_point_top(int player, t_app *app, int x, int y);
 void				ft_set_point_bot(int player, t_app *app, int x, int y);
+
+void				ft_calculate_dist(t_app *app);
 
 #endif

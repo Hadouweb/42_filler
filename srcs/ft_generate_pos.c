@@ -145,10 +145,12 @@ void	ft_verif_block(t_app *app)
 
 void	ft_generate_pos(t_app *app)
 {
+	app->best_y = 0;
+	app->best_x = 0;
 	ft_init_way(app);
 	ft_calculate_dist(app);
 	//ft_debug_dist(app);
-	ft_verif_block(app);
+	//ft_verif_block(app);
 	//ft_debug_block(app);
 	ft_sort_way(app);
 	ft_best_way(app);

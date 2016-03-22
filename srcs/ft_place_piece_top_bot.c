@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_place_piece_top_bot.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/22 21:15:17 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/22 21:15:18 by nle-bret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
 void	ft_place_piece_left_bot(t_app *app)
@@ -27,7 +39,7 @@ void	ft_place_piece_left_bot(t_app *app)
 void	ft_place_piece_left_top(t_app *app)
 {
 	int		x;
-	int		y; 
+	int		y;
 	int		y_max;
 	int		x_max;
 

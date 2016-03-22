@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_generate_pos.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/22 21:15:03 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/22 21:15:04 by nle-bret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
 int		ft_is_valid_pos(t_app *app, int y, int x)
@@ -5,6 +17,7 @@ int		ft_is_valid_pos(t_app *app, int y, int x)
 	int		px;
 	int		py;
 	int		star;
+	char	c;
 
 	py = 0;
 	star = 0;
@@ -15,11 +28,10 @@ int		ft_is_valid_pos(t_app *app, int y, int x)
 		{
 			if (y + py >= app->board.y || x + px >= app->board.x)
 				return (0);
-			if (ft_tolower(app->board.tab[y + py][x + px]) == app->me &&
-				app->piece.tab[py][px] == '*')
+			c = ft_tolower(app->board.tab[y + py][x + px]);
+			if (c == app->me && app->piece.tab[py][px] == '*')
 				star++;
-			if (app->piece.tab[py][px] == '*' &&
-				ft_tolower(app->board.tab[y + py][x + px]) == app->enemy)
+			if (app->piece.tab[py][px] == '*' && c == app->enemy)
 				return (0);
 			px++;
 		}
@@ -50,21 +62,21 @@ void	ft_calculate_dist(t_app *app)
 
 void	ft_init_way(t_app *app)
 {
-	app->way[0].f = ft_place_piece_left_top; 	// 00010100 20
+	app->way[0].f = ft_place_piece_left_top;
 	app->way[0].token = 0x14;
-	app->way[1].f = ft_place_piece_right_top; 	// 00100100 36
+	app->way[1].f = ft_place_piece_right_top;
 	app->way[1].token = 0x24;
-	app->way[2].f = ft_place_piece_left_bot;	// 00011000 24
+	app->way[2].f = ft_place_piece_left_bot;
 	app->way[2].token = 0x18;
-	app->way[3].f = ft_place_piece_right_bot;	// 00101000 40
+	app->way[3].f = ft_place_piece_right_bot;
 	app->way[3].token = 0x28;
-	app->way[4].f = ft_place_piece_top_left;	// 01000001 65
+	app->way[4].f = ft_place_piece_top_left;
 	app->way[4].token = 0x41;
-	app->way[5].f = ft_place_piece_top_right;	// 01000010 66
+	app->way[5].f = ft_place_piece_top_right;
 	app->way[5].token = 0x42;
-	app->way[6].f = ft_place_piece_bot_left;	// 10000001 129
+	app->way[6].f = ft_place_piece_bot_left;
 	app->way[6].token = 0x81;
-	app->way[7].f = ft_place_piece_bot_right;	// 10000010 130
+	app->way[7].f = ft_place_piece_bot_right;
 	app->way[7].token = 0x82;
 }
 
@@ -123,43 +135,10 @@ void	ft_sort_way(t_app *app)
 	way <<= 4;
 	way |= app->dist[1].id;
 	ft_best_way(app, way);
-	//fprintf(stderr, "____ %d\n", way);
-}
-
-void	ft_verif_block(t_app *app)
-{
-	int		x;
-	int		y;
-	int		x_max;
-	int		y_max;
-
-	y = 0;
-	y_max = app->board.y;
-	x_max = app->board.x;
-	while (y < y_max)
-	{
-		x = 0;
-		while (x < x_max)
-		{
-			if (ft_tolower(app->board.tab[y][x]) == app->me && x == 0)
-				app->dist[0] = app->dist[1];
-			if (ft_tolower(app->board.tab[y][x]) == app->me && x == x_max - 1)
-				app->dist[1] = app->dist[0];
-			if (ft_tolower(app->board.tab[y][x]) == app->me && y == 0)
-				app->dist[2] = app->dist[3];
-			if (ft_tolower(app->board.tab[y][x]) == app->me && y == y_max - 1)
-				app->dist[3] = app->dist[2];
-			x++;
-		}
-		y++;
-	}
 }
 
 void	ft_generate_pos(t_app *app)
 {
 	ft_calculate_dist(app);
-	//ft_debug_dist(app);
-	//ft_verif_block(app);
-	//ft_debug_block(app);
 	ft_sort_way(app);
 }

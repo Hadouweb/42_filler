@@ -12,7 +12,7 @@ void	ft_nc_key_hook(t_app *app)
 			app->render.run = 1;
 		else if (key == 32 && app->render.run)
 			app->render.run = 0;
-		else if (key == 65 && app->speed < 20)
+		else if (key == 65 && app->speed < 200)
 			app->speed += 1;
 		else if (key == 66 && app->speed > 1)
 			app->speed -= 1;

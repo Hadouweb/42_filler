@@ -60,3 +60,31 @@ void	ft_clear_tab(char **tab)
 		tab = NULL;
 	}
 }
+
+int		ft_is_valid_pos(t_app *app, int y, int x, int star)
+{
+	int		px;
+	int		py;
+	char	c;
+
+	py = 0;
+	while (py < app->piece.y)
+	{
+		px = 0;
+		while (px < app->piece.x)
+		{
+			if (y + py >= app->board.y || x + px >= app->board.x)
+				return (0);
+			c = ft_tolower(app->board.tab[y + py][x + px]);
+			if (c == app->me && app->piece.tab[py][px] == '*')
+				star++;
+			if (app->piece.tab[py][px] == '*' && c == app->enemy)
+				return (0);
+			px++;
+		}
+		py++;
+	}
+	if (star != 1)
+		return (0);
+	return (1);
+}

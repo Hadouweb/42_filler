@@ -82,6 +82,7 @@ void				ft_debug_pos(t_app *app);
 void				ft_debug_dist(t_app *app);
 
 void				ft_init_board_or_piece(t_app *app, char *str);
+void				ft_init_pos(t_app *app);
 
 void				ft_set_player(t_app *app, char *str);
 void				ft_set_board(t_app *app, char *str);
@@ -95,7 +96,7 @@ void				ft_clear_tab(char **tab);
 void				ft_set_data(t_app *app, char *line);
 
 void				ft_generate_pos(t_app *app);
-int					ft_is_valid_pos(t_app *app, int x, int y);
+int					ft_is_valid_pos(t_app *app, int x, int y, int star);
 void				ft_calculate_edge(t_app *app);
 
 void				ft_calc_right(t_app *app);

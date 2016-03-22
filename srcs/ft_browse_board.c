@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-void	ft_set_point_left_right(t_app *app, int y, int x)
+static void	ft_set_point_left_right(t_app *app, int y, int x)
 {
 	char	c;
 
@@ -27,7 +27,7 @@ void	ft_set_point_left_right(t_app *app, int y, int x)
 		ft_set_point_left(1, app, y, x);
 }
 
-void	ft_calc_left_and_right(t_app *app)
+static void	ft_calc_left_and_right(t_app *app)
 {
 	int		x_max;
 	int		y_max;
@@ -49,7 +49,7 @@ void	ft_calc_left_and_right(t_app *app)
 	}
 }
 
-void	ft_set_point_top_bot(t_app *app, int y, int x)
+static void	ft_set_point_top_bot(t_app *app, int y, int x)
 {
 	char	c;
 
@@ -64,7 +64,7 @@ void	ft_set_point_top_bot(t_app *app, int y, int x)
 		ft_set_point_top(1, app, y, x);
 }
 
-void	ft_calc_top_and_bot(t_app *app)
+static void	ft_calc_top_and_bot(t_app *app)
 {
 	int		x_max;
 	int		y_max;
@@ -86,7 +86,7 @@ void	ft_calc_top_and_bot(t_app *app)
 	}
 }
 
-void	ft_calculate_edge(t_app *app)
+void		ft_calculate_edge(t_app *app)
 {
 	ft_init_pos(app);
 	ft_calc_left_and_right(app);

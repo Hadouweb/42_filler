@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-void	ft_parsing(t_app *app, char *str)
+static void	ft_parsing(t_app *app, char *str)
 {
 	if (str[0])
 	{
@@ -29,7 +29,7 @@ void	ft_parsing(t_app *app, char *str)
 	}
 }
 
-int		main(void)
+int			main(void)
 {
 	char	*line;
 	t_app	app;

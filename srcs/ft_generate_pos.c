@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-void	ft_best_way(t_app *app, unsigned char way)
+static void	ft_best_way(t_app *app, unsigned char way)
 {
 	int		i;
 	int		find;
@@ -41,7 +41,7 @@ void	ft_best_way(t_app *app, unsigned char way)
 	app->way[i].f(app);
 }
 
-void	ft_sort_way(t_app *app)
+void		ft_sort_way(t_app *app)
 {
 	int				i;
 	t_dist			tmp;
@@ -68,7 +68,7 @@ void	ft_sort_way(t_app *app)
 	ft_best_way(app, way);
 }
 
-void	ft_calculate_dist(t_app *app)
+void		ft_calculate_dist(t_app *app)
 {
 	int		me;
 	int		en;
@@ -86,7 +86,7 @@ void	ft_calculate_dist(t_app *app)
 	app->dist[3].id = 8;
 }
 
-void	ft_generate_pos(t_app *app)
+void		ft_generate_pos(t_app *app)
 {
 	ft_calculate_dist(app);
 	ft_sort_way(app);

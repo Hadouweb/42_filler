@@ -84,4 +84,3 @@ void	ft_set_piece(t_app *app, char *str)
 		}
 	}
 }
-

@@ -24,6 +24,7 @@ int		main(void)
 
 	ft_bzero(&app, sizeof(t_app));
 	app.play = 1;
+	ft_init_way(&app);
 	while (get_next_line(0, &line))
 	{
 		ft_parsing(&app, line);

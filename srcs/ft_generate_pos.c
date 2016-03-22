@@ -39,68 +39,75 @@ void	ft_calculate_dist(t_app *app)
 	me = app->id_me;
 	en = app->id_enemy;
 	app->dist[0].value = app->pos[en].left.x - app->pos[me].left.x;
-	app->dist[0].id = 0;
+	app->dist[0].id = 1;
 	app->dist[1].value = app->pos[me].right.x - app->pos[en].right.x;
-	app->dist[1].id = 1;
+	app->dist[1].id = 2;
 	app->dist[2].value = app->pos[en].top.y - app->pos[me].top.y;
-	app->dist[2].id = 2;
+	app->dist[2].id = 4;
 	app->dist[3].value = app->pos[me].bot.y - app->pos[en].bot.y;
-	app->dist[3].id = 3;
+	app->dist[3].id = 8;
 }
 
 void	ft_init_way(t_app *app)
 {
-	app->f[0] = ft_place_piece_left_top;
-	app->f[1] = ft_place_piece_right_top;
-	app->f[2] = ft_place_piece_top_left;
-	app->f[3] = ft_place_piece_top_right;
-	app->f[4] = ft_place_piece_left_bot;
-	app->f[5] = ft_place_piece_right_bot;
-	app->f[6] = ft_place_piece_bot_left;
-	app->f[7] = ft_place_piece_bot_right;
+	app->way[0].f = ft_place_piece_left_top; 	// 00010100 20
+	app->way[0].token = 0x14;
+	app->way[1].f = ft_place_piece_right_top; 	// 00100100 36
+	app->way[1].token = 0x24;
+	app->way[2].f = ft_place_piece_left_bot;	// 00011000 24
+	app->way[2].token = 0x18;
+	app->way[3].f = ft_place_piece_right_bot;	// 00101000 40
+	app->way[3].token = 0x28;
+	app->way[4].f = ft_place_piece_top_left;	// 01000001 65
+	app->way[4].token = 0x41;
+	app->way[5].f = ft_place_piece_top_right;	// 01000010 66
+	app->way[5].token = 0x42;
+	app->way[6].f = ft_place_piece_bot_left;	// 10000001 129
+	app->way[6].token = 0x81;
+	app->way[7].f = ft_place_piece_bot_right;	// 10000010 130
+	app->way[7].token = 0x82;
 }
 
-void	ft_best_way(t_app *app)
+void	ft_best_way(t_app *app, unsigned char way)
 {
-	if (app->dist[0].id == 0)
+	int		i;
+	int		find;
+
+	i = 0;
+	find = 0;
+	while (i < 8)
 	{
-		if (app->dist[1].id == 2)
-			app->f[0](app);
-		else
-			app->f[4](app);
+		if (way == app->way[i].token)
+		{
+			find = 1;
+			break ;
+		}
+		i++;
 	}
-	else if (app->dist[0].id == 1)
+	if (!find)
 	{
-		if (app->dist[1].id == 2)
-			app->f[1](app);
-		else
-			app->f[5](app);
+		i = 0;
+		while (i < 8)
+		{
+			if (way & app->way[i].token)
+				break ;
+			i++;
+		}
 	}
-	else if (app->dist[0].id == 2)
-	{
-		if (app->dist[1].id == 0)
-			app->f[2](app);
-		else
-			app->f[3](app);
-	}
-	else if (app->dist[0].id == 3)
-	{
-		if (app->dist[1].id == 0)
-			app->f[6](app);
-		else
-			app->f[7](app);
-	}
+	app->way[i].f(app);
 }
 
 
 void	ft_sort_way(t_app *app)
 {
-	int			i;
-	t_dist		tmp;
+	int				i;
+	t_dist			tmp;
+	unsigned char	way;
 
 	i = 0;
 	ft_bzero(&tmp, sizeof(t_dist));
-	while (i < 4)
+	way = 0;
+	while (i < 3)
 	{
 		if (app->dist[i + 1].value < app->dist[i].value)
 		{
@@ -112,6 +119,11 @@ void	ft_sort_way(t_app *app)
 		else
 			i++;
 	}
+	way |= app->dist[0].id;
+	way <<= 4;
+	way |= app->dist[1].id;
+	ft_best_way(app, way);
+	//fprintf(stderr, "____ %d\n", way);
 }
 
 void	ft_verif_block(t_app *app)
@@ -145,13 +157,9 @@ void	ft_verif_block(t_app *app)
 
 void	ft_generate_pos(t_app *app)
 {
-	app->best_y = 0;
-	app->best_x = 0;
-	ft_init_way(app);
 	ft_calculate_dist(app);
 	//ft_debug_dist(app);
 	//ft_verif_block(app);
 	//ft_debug_block(app);
 	ft_sort_way(app);
-	ft_best_way(app);
 }

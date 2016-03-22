@@ -22,7 +22,6 @@ void	ft_calc_left_and_right(t_app *app)
 				ft_set_point_right(0, app, y, x);
 			if (c == 'x' && x > app->pos[0].right.x)
 				ft_set_point_right(1, app, y, x);
-
 			if (c == 'o' && x < app->pos[0].left.x)
 				ft_set_point_left(0, app, y, x);
 			if (c == 'x' && x < app->pos[1].left.x)
@@ -79,5 +78,4 @@ void	ft_calculate_edge(t_app *app)
 	ft_init_pos(app);
 	ft_calc_left_and_right(app);
 	ft_calc_top_and_bot(app);
-	//ft_debug_pos(app);
 }

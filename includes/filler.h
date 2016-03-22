@@ -4,6 +4,11 @@
 # include "libft.h"
 # include <stdio.h>
 
+# define LEFT 0
+# define RIGHT 1
+# define TOP 2
+# define BOT 3
+
 typedef struct 		s_app t_app;
 
 typedef struct 		s_point
@@ -40,9 +45,15 @@ typedef struct 		s_board
 typedef struct 		s_dist
 {
 	int				value;
-	int				id;
+	unsigned char	id;
 	int				block;
 }					t_dist;
+
+typedef struct 		s_way
+{
+	void			(*f)(t_app *);
+	unsigned char	token;
+}					t_way;
 
 struct 				s_app
 {
@@ -59,13 +70,10 @@ struct 				s_app
 	int				play;
 	t_pos			pos[2];
 	t_dist			dist[4];
-	void			(*f[8])(t_app *);
-	int				best_y;
-	int				best_x;
-	int				diff_dist;
-	int				find;
-	char			block;
+	t_way			way[8];
 };
+
+void				ft_init_way(t_app *app);
 
 void				ft_debug_list(t_list *list);
 void				ft_debug_tab_b(t_app *app);

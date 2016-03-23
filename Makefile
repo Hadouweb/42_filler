@@ -5,6 +5,7 @@ SRCPATH = ./srcs
 INCPATH = ./includes
 
 LIBFT = ./libft
+VISU = ./visu
 
 HEADER = -I $(LIBFT)/includes -I $(INCPATH)
 
@@ -28,6 +29,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@make -C $(LIBFT)
+	@make -C $(VISU)
 	@$(CC) $(HEADER) $(LIB) -o $(NAME) $(OBJ)
 
 %.o: %.c
@@ -36,10 +38,12 @@ $(NAME) : $(OBJ)
 
 clean : 
 	@make -C $(LIBFT) clean
-	rm -rf $(OBJ)
+	@make -C $(VISU) clean
+	@rm -rf $(OBJ)
 
 fclean : clean
 	@make -C $(LIBFT) fclean
+	@make -C $(VISU) fclean
 	@rm -rf $(NAME)
 
 re : fclean all

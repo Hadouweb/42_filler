@@ -14,7 +14,6 @@
 # define FILLER_H
 
 # include "libft.h"
-# include <stdio.h>
 
 # define LEFT 0
 # define RIGHT 1

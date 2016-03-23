@@ -32,7 +32,7 @@ $(NAME) : $(OBJ)
 
 clean : 
 	@make -C $(LIBFT) clean
-	rm -rf $(OBJ)
+	@rm -rf $(OBJ)
 
 fclean : clean
 	@make -C $(LIBFT) fclean

@@ -39,7 +39,7 @@ int			main(void)
 	line = NULL;
 	ft_bzero(&app, sizeof(t_app));
 	app.list_tmp = NULL;
-	app.speed = 200;
+	app.speed = 10;
 	while (1)
 	{
 		if (app.render.run || !app.start)

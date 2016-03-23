@@ -20,7 +20,7 @@ void	ft_place_piece_left_bot(t_app *app)
 
 	y_max = app->board.y;
 	x_max = app->board.x;
-	while (--y_max)
+	while (y_max--)
 	{
 		x = 0;
 		while (x < x_max)
@@ -69,10 +69,10 @@ void	ft_place_piece_right_bot(t_app *app)
 	int		x_max;
 
 	y_max = app->board.y;
-	while (--y_max)
+	while (y_max--)
 	{
 		x_max = app->board.x;
-		while (--x_max)
+		while (x_max--)
 		{
 			if (ft_is_valid_pos(app, y_max, x_max))
 			{
@@ -95,7 +95,7 @@ void	ft_place_piece_right_top(t_app *app)
 	while (y < app->board.y)
 	{
 		x_max = app->board.x;
-		while (--x_max)
+		while (x_max--)
 		{
 			if (ft_is_valid_pos(app, y, x_max))
 			{

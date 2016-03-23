@@ -88,7 +88,7 @@ struct				s_app
 void				ft_print(int y, int x);
 void				ft_clear_list(t_app *app);
 void				ft_clear_tab(char **tab);
-int					ft_is_valid_pos(t_app *app, int y, int x, int star);
+int					ft_is_valid_pos(t_app *app, int y, int x);
 
 void				ft_set_point_right(int player, t_app *app, int y, int x);
 void				ft_set_point_left(int player, t_app *app, int y, int x);

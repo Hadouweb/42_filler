@@ -61,28 +61,44 @@ void	ft_clear_tab(char **tab)
 	}
 }
 
-int		ft_is_valid_pos(t_app *app, int y, int x, int star)
+int		ft_check_pos(t_app *app, t_point pb, t_point pp, int *star)
 {
-	int		px;
-	int		py;
 	char	c;
 
-	py = 0;
-	while (py < app->piece.y)
+	c = 0;
+	if ((pb.y + pp.y) < app->board.y && (pb.x + pp.x) < app->board.x)
 	{
-		px = 0;
-		while (px < app->piece.x)
+		c = ft_tolower(app->board.tab[pb.y + pp.y][pb.x + pp.x]);
+		if (c == app->me && app->piece.tab[pp.y][pp.x] == '*')
+			(*star)++;
+		if (app->piece.tab[pp.y][pp.x] == '*' && c == app->enemy)
+			return (0);
+	}
+	else if (app->piece.tab[pp.y][pp.x] == '*')
+		return (0);
+	return (1);
+}
+
+int		ft_is_valid_pos(t_app *app, int y, int x)
+{
+	t_point	pp;
+	t_point	pb;
+	int		star;
+
+	pp.y = 0;
+	star = 0;
+	pb.y = y;
+	pb.x = x;
+	while (pp.y < app->piece.y)
+	{
+		pp.x = 0;
+		while (pp.x < app->piece.x)
 		{
-			if (y + py >= app->board.y || x + px >= app->board.x)
+			if (!ft_check_pos(app, pb, pp, &star))
 				return (0);
-			c = ft_tolower(app->board.tab[y + py][x + px]);
-			if (c == app->me && app->piece.tab[py][px] == '*')
-				star++;
-			if (app->piece.tab[py][px] == '*' && c == app->enemy)
-				return (0);
-			px++;
+			pp.x++;
 		}
-		py++;
+		pp.y++;
 	}
 	if (star != 1)
 		return (0);

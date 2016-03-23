@@ -21,11 +21,8 @@ static void	ft_best_way(t_app *app, unsigned char way)
 	find = 0;
 	while (i < 8)
 	{
-		if (way == app->way[i].token)
-		{
-			find = 1;
+		if (way == app->way[i].token && (find = 1))
 			break ;
-		}
 		i++;
 	}
 	if (!find)
@@ -33,11 +30,14 @@ static void	ft_best_way(t_app *app, unsigned char way)
 		i = 0;
 		while (i < 8)
 		{
-			if (way & app->way[i].token)
+			if ((way & app->way[i].token) & 0x0f ||
+				(way & app->way[i].token) & 0xf0)
 				break ;
 			i++;
 		}
 	}
+	if (i >= 8)
+		i = 0;
 	app->way[i].f(app);
 }
 

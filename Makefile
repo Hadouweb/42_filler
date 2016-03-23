@@ -11,7 +11,6 @@ HEADER = -I $(LIBFT)/includes -I $(INCPATH)
 LIB = $(LIBFT)/libft.a
 
 SRC = 	$(SRCPATH)/main.c\
-		$(SRCPATH)/ft_debug.c\
 		$(SRCPATH)/ft_init.c\
 		$(SRCPATH)/ft_set_data.c\
 		$(SRCPATH)/ft_util.c\

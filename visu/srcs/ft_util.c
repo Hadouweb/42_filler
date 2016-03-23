@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_util.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/23 02:39:13 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/23 02:39:14 by nle-bret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visu.h"
 
 void	ft_clear_list(t_app *app)
@@ -25,7 +37,7 @@ void	ft_clean_tab(char **tab)
 
 	i = 0;
 	if (tab && tab[0])
-	{	
+	{
 		while (tab[i])
 		{
 			ft_strdel(&tab[i]);
@@ -34,4 +46,39 @@ void	ft_clean_tab(char **tab)
 		free(tab);
 		tab = NULL;
 	}
+}
+
+void	ft_print_piece(t_app *app)
+{
+	int		max_y;
+	int		y;
+
+	max_y = app->piece.y;
+	y = 0;
+	while (y < max_y)
+	{
+		mvwprintw(app->render.w_right, y + 10, 3, "%s", app->piece.tab[y]);
+		y++;
+	}
+}
+
+void	ft_is_finish(t_app *app)
+{
+	wclear(app->render.w_right);
+	mvwprintw(app->render.w_right, 1, 3, "Score :");
+	wattron(app->render.w_right, COLOR_PAIR(2));
+	mvwprintw(app->render.w_right, 3, 3, "%s : %d",
+		app->p1.name, app->p1_score);
+	wattroff(app->render.w_right, COLOR_PAIR(2));
+	wattron(app->render.w_right, COLOR_PAIR(3));
+	mvwprintw(app->render.w_right, 4, 3, "%s : %d",
+		app->p2.name, app->p2_score);
+	wattroff(app->render.w_right, COLOR_PAIR(3));
+	mvwprintw(app->render.w_right, app->board.y, 3,
+		"ESC pour quitter", app->speed);
+	wrefresh(app->render.w_right);
+	while (getch() != 27)
+		;
+	wclear(app->render.w_right);
+	wclear(app->render.w_left);
 }

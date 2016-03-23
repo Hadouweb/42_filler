@@ -1,15 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_nc_init.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/23 02:38:59 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/23 02:39:00 by nle-bret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visu.h"
 
-static void	ft_nc_init_pair(void)
-{
-	init_pair(1, COL_GREY, COLOR_BLACK);
-	init_pair(2, COL_RED, COLOR_BLACK);
-	init_pair(3, COL_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_BLACK, COL_LIGHT_RED);
-	init_pair(5, COLOR_BLACK, COL_LIGHT_BLUE);
-}
-
-void		ft_nc_init_color(void)
+static void	ft_nc_init_color(void)
 {
 	init_color(COL_GREY, 300, 300, 300);
 	init_color(COL_RED, 600, 0, 0);
@@ -21,29 +24,48 @@ void		ft_nc_init_color(void)
 	init_color(COL_YELLOW, 600, 600, 0);
 	init_color(COL_LIGHT_YELLOW, 1000, 1000, 300);
 	init_color(COL_WHITE, 1000, 1000, 1000);
-	ft_nc_init_pair();
+	init_pair(1, COL_GREY, COLOR_BLACK);
+	init_pair(2, COL_RED, COLOR_BLACK);
+	init_pair(3, COL_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_BLACK, COL_LIGHT_RED);
+	init_pair(5, COLOR_BLACK, COL_LIGHT_BLUE);
 }
 
-void	ft_nc_init_window(t_app *app)
+void		ft_nc_init(t_app *app)
 {
-	app->render.w_left = newwin(app->board.y + 3, app->board.x + 4, 0, 0);
-	app->render.w_right = newwin(app->board.y + 30, 40, 0, app->board.x + 5);
-	box(app->render.w_left, ACS_VLINE, ACS_HLINE);
-	//refresh();
-	//vm_init_const_text(app, r);
-}
+	FILE	*f;
 
-void	ft_nc_init(t_app *app)
-{
-	FILE 	*file_id = fopen("/dev/tty", "r+");
-
-	newterm(getenv("TERM"), file_id, file_id);
+	f = fopen("/dev/tty", "r+");
+	newterm(getenv("TERM"), f, f);
 	app->render.run = IS_RUN;
 	start_color();
 	nodelay(stdscr, TRUE);
 	curs_set(0);
 	noecho();
 	ft_nc_init_color();
-	ft_nc_init_window(app);
+	app->render.w_left = newwin(app->board.y + 3, app->board.x + 4, 0, 0);
+	app->render.w_right = newwin(app->board.y + 30, 40, 0, app->board.x + 5);
+	box(app->render.w_left, ACS_VLINE, ACS_HLINE);
 	refresh();
+}
+
+void		ft_init_board_or_piece(t_app *app, char *str)
+{
+	if (ft_strstr(str, "Plateau"))
+	{
+		if (!app->board.x)
+		{
+			app->board.y = ft_atoi(str += 8);
+			app->board.x = ft_atoi(str += 2);
+		}
+		ft_clean_tab(app->board.tab);
+		app->mode = 1;
+	}
+	else if (ft_strstr(str, "Piece"))
+	{
+		app->piece.y = ft_atoi(str += 6);
+		app->piece.x = ft_atoi(str += 2);
+		ft_clean_tab(app->piece.tab);
+		app->mode = 2;
+	}
 }

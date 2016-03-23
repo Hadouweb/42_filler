@@ -11,9 +11,7 @@ HEADER = -I $(LIBFT)/includes -I $(INCPATH)
 LIB = -L$(LIBFT) -lft -lncurses
 
 SRC = 	$(SRCPATH)/main.c\
-		$(SRCPATH)/ft_get_data.c\
 		$(SRCPATH)/ft_set_data.c\
-		$(SRCPATH)/ft_debug.c\
 		$(SRCPATH)/ft_util.c\
 		$(SRCPATH)/ft_ncurses.c\
 		$(SRCPATH)/ft_nc_init.c\

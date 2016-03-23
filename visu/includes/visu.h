@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/23 03:01:11 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/23 03:01:13 by nle-bret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VISU_H
 # define VISU_H
 
-#include "libft.h"
-#include <stdio.h>
-#include <ncurses.h>
+# include "libft.h"
+# include <ncurses.h>
 
 # define COL_GREY 100
 # define COL_RED 101
@@ -18,13 +29,13 @@
 
 # define IS_RUN 0
 
-typedef struct 		s_player
+typedef struct		s_player
 {
 	int				id;
 	char			*name;
 }					t_player;
 
-typedef struct 		s_board
+typedef struct		s_board
 {
 	int				x;
 	int				y;
@@ -32,7 +43,7 @@ typedef struct 		s_board
 	char			**tab;
 }					t_board;
 
-typedef struct 		s_piece
+typedef struct		s_piece
 {
 	int				x;
 	int				y;
@@ -40,7 +51,7 @@ typedef struct 		s_piece
 	char			**tab;
 }					t_piece;
 
-typedef struct 		s_render
+typedef struct		s_render
 {
 	WINDOW			*w_left;
 	WINDOW			*w_right;
@@ -48,7 +59,7 @@ typedef struct 		s_render
 	int				run;
 }					t_render;
 
-typedef struct  	s_app
+typedef struct		s_app
 {
 	t_player		p1;
 	t_player		p2;
@@ -62,30 +73,26 @@ typedef struct  	s_app
 	int				is_finish;
 	int				p1_score;
 	int				p2_score;
-	int 			start;
+	int				start;
 	int				speed;
+	int				nc;
 }					t_app;
 
+void				ft_clear_list(t_app *app);
+void				ft_clean_tab(char **tab);
+void				ft_print_piece(t_app *app);
+void				ft_is_finish(t_app *app);
 
-void	ft_init_board_or_piece(t_app *app, char *str);
-void	ft_set_player(t_app *app, char *str);
-void	ft_set_current_player(t_app *app, char *str);
-void	ft_set_board(t_app *app, char *str);
-void	ft_set_piece(t_app *app, char *str);
-void	ft_set_winner(t_app *app, char *str);
+void				ft_set_winner(t_app *app, char *str);
+void				ft_set_player(t_app *app, char *str);
+void				ft_set_current_player(t_app *app, char *str);
+void				ft_set_board(t_app *app, char *str);
+void				ft_set_piece(t_app *app, char *str);
 
-void	ft_clear_list(t_app *app);
-void	ft_clean_tab(char **tab);
+void				ft_nc_key_hook(t_app *app);
+int					ft_nc_update(t_app *app);
 
-void	ft_debug_player(t_app *app);
-void	ft_debug_board(t_app *app);
-void	ft_debug_piece(t_app *app);
-void	ft_debug_lst(t_app *app);
-void	ft_debug_current_player(t_app *app);
-
-void	ft_nc_init_window(t_app *app);
-void	ft_nc_init(t_app *app);
-int		ft_nc_update(t_app *app);
-void	ft_nc_key_hook(t_app *app);
+void				ft_nc_init(t_app *app);
+void				ft_init_board_or_piece(t_app *app, char *str);
 
 #endif

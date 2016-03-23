@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/23 02:39:17 by nle-bret          #+#    #+#             */
+/*   Updated: 2016/03/23 02:39:18 by nle-bret         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "visu.h"
 
-void	ft_parsing(t_app *app, char *str)
+static void	ft_parsing(t_app *app, char *str)
 {
 	if (str[0])
 	{
@@ -19,24 +31,22 @@ void	ft_parsing(t_app *app, char *str)
 	}
 }
 
-int		main(void)
+int			main(void)
 {
 	char	*line;
 	t_app	app;
-	int		nc;
 
 	line = NULL;
 	ft_bzero(&app, sizeof(t_app));
 	app.list_tmp = NULL;
 	app.speed = 200;
-	nc = 0;
 	while (1)
 	{
 		if (app.render.run || !app.start)
 		{
 			if (get_next_line(0, &line) > 0)
 			{
-				if (!nc && app.board.x && ++nc)
+				if (!app.nc && app.board.x && ++app.nc)
 					ft_nc_init(&app);
 				ft_parsing(&app, line);
 				ft_strdel(&line);
